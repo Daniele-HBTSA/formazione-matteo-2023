@@ -13,13 +13,6 @@ namespace LogInDotNet.Service.InterfacesImpl
             UserRepository = userRepository;
         }
 
-        public async Task<List<UserDTO>> GetTableById(int userId)
-        {
-           
-
-
-        }
-
         public async Task<List<UserDTO>> GetUsersTable()
         {
             return await UserRepository.SelectUsers();

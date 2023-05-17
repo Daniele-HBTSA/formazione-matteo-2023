@@ -2,7 +2,7 @@
 using LogInDotNet.Model;
 using LogInDotNet.Repository;
 using LogInDotNet.Service;
-using LogInDotNet.Service.InterfacceImpl;
+using LogInDotNet.Service.InterfacesImpl;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 

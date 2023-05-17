@@ -1,8 +1,8 @@
 using LogInDotNet.Context;
 using LogInDotNet.Repository;
-using LogInDotNet.Repository.InterfacceImpl;
+using LogInDotNet.Repository.InterfacesImpl;
 using LogInDotNet.Service;
-using LogInDotNet.Service.InterfacceImpl;
+using LogInDotNet.Service.InterfacesImpl;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
