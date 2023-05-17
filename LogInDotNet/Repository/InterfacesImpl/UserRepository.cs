@@ -9,6 +9,8 @@ namespace LogInDotNet.Repository.InterfacesImpl
 {
     public class UserRepository : IUserRepository
     {
+        public UserDTO currentUser { get; set; }
+
         public LogInContext LogInContext { get; set; } //Connessione col DB
 
         public UserRepository(LogInContext context)
