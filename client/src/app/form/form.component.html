@@ -1,0 +1,4 @@
+<input type="text" id="username" placeholder="User Name" [(ngModel)]="UserName" name="UserName" />
+<input type="password" id="password" placeholder="Password" [(ngModel)]="UserPsw" name="UserPsw" />
+<app-bottone-log-in [UserName]="UserName" [UserPsw]="UserPsw" (autenticato)="onAuthenticate($event)"></app-bottone-log-in>
+<app-bottone-register [UserName]="UserName" [UserPsw]="UserPsw"></app-bottone-register>

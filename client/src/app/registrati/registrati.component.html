@@ -1,0 +1,8 @@
+<input type="text" id="username" placeholder="User Name" [(ngModel)]="UserName" name="UserName">
+<input type="password" id="password" placeholder="Password" [(ngModel)]="UserPsw" name="UserPsw">
+
+<button type="submit" (click)="clickRegistration()">Registrati</button>
+<div class="registrati">
+    <p>Hai già un account?</p>
+    <a routerLink="">Fai il login!</a>
+</div>

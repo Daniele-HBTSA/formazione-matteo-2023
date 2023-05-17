@@ -1,0 +1,3 @@
+Stringa generazione entityFramework:
+
+Scaffold-DbContext "Data Source=FRIDAY;Initial Catalog=Login; Persist Security Info=True;User ID=sa;Password=Matteo9893" Microsoft.EntityFrameworkCore.SqlServer -project "LogInDotNet" -OutputDir Context     -ContextDir Context    -context "LogInContext"  -UseDatabaseNames -NoPluralize -f

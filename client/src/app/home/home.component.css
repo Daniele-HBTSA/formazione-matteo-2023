@@ -1,0 +1,12 @@
+table {
+    border-style: outset;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px gray;
+    width: 100%;
+}
+
+table td, tr {
+    border-style: outset;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px gray;
+}
