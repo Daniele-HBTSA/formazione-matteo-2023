@@ -14,7 +14,7 @@ namespace FinanceApp.Context
         public string ACCOUNT_AZIENDA { get; set; } = null!;
         public string PASSWORD_AZIENDA { get; set; } = null!;
         public string NOME_AZIENDA { get; set; } = null!;
-        public int? CAPITALE_AZIENDA { get; set; }
+        public int? SALDO_AZIENDA { get; set; }
 
         public virtual ICollection<Movimenti> Movimenti { get; set; }
     }

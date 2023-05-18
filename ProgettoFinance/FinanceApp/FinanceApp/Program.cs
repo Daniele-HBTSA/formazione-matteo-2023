@@ -1,4 +1,6 @@
 using FinanceApp.Context;
+using FinanceApp.Repository;
+using FinanceApp.Repository.InterfacesImpl;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,8 +10,8 @@ builder.Services.AddControllers();
 var logInConnString = builder.Configuration.GetConnectionString("DBLogin");
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddHttpContextAccessor();
-//builder.Services.AddScoped<IAutenticationService, AuthenticationService>();
-//builder.Services.AddScoped<IRegistrationService, RegistrationService>();
+builder.Services.AddScoped<IAziendeRepository, AziendeRepository>();
+builder.Services.AddScoped<IMovimentiRepository, MovimentiRepository>();
 //builder.Services.AddScoped<IGetTableService, GetTableService>();
 //builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddDbContext<FinanceAppContext>(x => x.UseSqlServer(logInConnString, sqlServerOptionsAction: sqlOptions => { sqlOptions.EnableRetryOnFailure(); }));
