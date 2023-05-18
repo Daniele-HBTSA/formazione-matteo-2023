@@ -53,7 +53,7 @@ namespace LogInDotNet.Repository.InterfacesImpl
         }
 
         //Aggiunge nuovo utente al DB
-        public async Task<Boolean> AddUser(UserDTO user)
+        public async Task<bool> AddUser(UserDTO user)
         {
             Users newUser = new Users();
             newUser.UserName = user.UserName;
@@ -67,7 +67,7 @@ namespace LogInDotNet.Repository.InterfacesImpl
         //Seleziona tabella per ID
         public async Task<UserDTO> GetDataById(int userId)
         {
-            Users userData = await LogInContext.Users.FirstOrDefaultAsync(element => element.UserID.Equals(userId));
+            Users? userData = await LogInContext.Users.FirstOrDefaultAsync(element => element.UserID.Equals(userId));
 
             UserDTO requestedData = new UserDTO();
             requestedData.UserId = userData.UserID;

@@ -4,6 +4,6 @@ namespace LogInDotNet.Service
 {
     public interface IAutenticationService
     {
-        public Task<Boolean> authenticate(UserDTO userInfo);
+        public Task<bool> authenticate(UserDTO userInfo);
     }
 }

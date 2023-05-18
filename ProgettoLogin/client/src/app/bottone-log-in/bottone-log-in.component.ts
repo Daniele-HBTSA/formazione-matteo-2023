@@ -23,7 +23,6 @@ export class BottoneLogInComponent implements OnInit {
   }
 
   clickLogIn(){ // effettuare la chiamata 
-    console.log("hello there")
      this.auth.logIn(this.UserName, this.UserPsw).subscribe({ //questo metodo riceve gli aggiornamenti dall'Observable
        /*
        All'interno di subscribe ci sono 2 handlers:

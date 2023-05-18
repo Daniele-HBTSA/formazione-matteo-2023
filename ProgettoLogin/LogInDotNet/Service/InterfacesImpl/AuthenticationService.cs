@@ -17,7 +17,7 @@ namespace LogInDotNet.Service.InterfacesImpl
         }
 
         //Controlla se i dati utente esistono nel DB
-        public async Task<Boolean> authenticate(UserDTO userInfo) //Riceve i dati dal controller
+        public async Task<bool> authenticate(UserDTO userInfo) //Riceve i dati dal controller
         {
             List<UserDTO> usersList = await UserRepository.SelectUsers(); //Riceve di dati dalla repository
 

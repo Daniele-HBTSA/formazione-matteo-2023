@@ -1,5 +1,5 @@
 export interface User{
-    UserId? : Int16Array
+    UserId? : number
     UserName : string
     UserPsw : string
 }
