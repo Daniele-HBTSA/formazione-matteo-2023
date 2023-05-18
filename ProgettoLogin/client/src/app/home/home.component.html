@@ -1,0 +1,20 @@
+<div class="benvenuto">
+    <h1>Benvenuto nella home</h1>
+    <p>Tabella utenti</p>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>UserName</th>
+                    <th>Password</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of users">
+                    <td>{{user.UserName}}</td>
+                    <td>{{user.UserPsw}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
