@@ -4,6 +4,9 @@ namespace FinanceApp.Models
 {
     public class MovimentoDTO
     {
+        [JsonPropertyName("IdMovimento")]
+        public int? IdMovimento { get; set; }
+
         [JsonPropertyName("IdAzienda")]
         public int IdAzienda { get; set; }
 
@@ -12,8 +15,8 @@ namespace FinanceApp.Models
 
         public override string ToString()
         {
-            return string.Format("Codice movimento: {0}, Valore movimento: {1}",
-                this.IdAzienda, this.ValoreMovimento);
+            return string.Format("Id Movimento: {0}, Id Azienda: {1}, Valore movimento: {2}",
+                this.IdMovimento, this.IdAzienda, this.ValoreMovimento);
         }
     }
 }

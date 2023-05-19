@@ -4,7 +4,7 @@ namespace FinanceApp.Repository
 {
     public interface IMovimentiRepository
     {
-        public Task<List<MovimentoDTO>> SelezionaMovimenti();
+        public Task<List<MovimentoDTO>> SelezionaMovimentiPerAzienda(int idAzienda);
         public Task<MovimentoDTO> SelezionaMovimentoPerID(int IdAzienda);
         public Task<bool> AggiungiMovimento(MovimentoDTO nuovoMovimento);
         public Task<bool> EliminaMovimento(int IdMovimento);

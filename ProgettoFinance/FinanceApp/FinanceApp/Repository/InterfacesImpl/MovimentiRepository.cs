@@ -1,7 +1,6 @@
 ﻿using FinanceApp.Context;
 using FinanceApp.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Data.SqlClient;
 
 namespace FinanceApp.Repository.InterfacesImpl
 {
@@ -14,32 +13,56 @@ namespace FinanceApp.Repository.InterfacesImpl
             Context = context;
         }
 
-        public async Task<List<MovimentoDTO>> SelezionaMovimenti()
+        //Selezionatori entità:
+
+        public async Task<List<Movimenti>> SelezionaEntitaMovimentiPerAzienda(int idAzienda)
         {
-            List<MovimentoDTO> listaMovimenti = new List<MovimentoDTO>();
+            List<Movimenti>? listaDB = await Context.Movimenti.Where(element => element.ID_AZIENDA.Equals(idAzienda)).ToListAsync();
 
-            try
+            if (listaDB == null)
             {
-                List<Movimenti> listaDB = await Context.Movimenti.ToListAsync();
-                listaMovimenti = listaDB.Select(element => new MovimentoDTO
-                {
-
-                }).ToList();
-
-                return listaMovimenti;
-
+                throw new Exception("Lista non trovata");
             }
-            catch (SqlException ex)
-            {
-                return null;
-            }
+
+            return listaDB;
         }
 
-        public async Task<MovimentoDTO> SelezionaMovimentoPerID(int idAzienda)
+        public async Task<Movimenti> SelezionaEntitaMovimentoPerID(int idMovimento)
         {
-            Movimenti? infoDB = await Context.Movimenti.FirstOrDefaultAsync(element => element.ID_AZIENDA.Equals(idAzienda));
+            Movimenti? infoDB = await Context.Movimenti.FirstOrDefaultAsync(element => element.ID_MOVIMENTO.Equals(idMovimento));
 
-            MovimentoDTO? movimento = new MovimentoDTO();
+            if(infoDB == null)
+            {
+                throw new Exception("Movimento non trovato");
+            }
+            return infoDB;
+        }
+
+        /*================================================================*/
+
+        public async Task<List<MovimentoDTO>> SelezionaMovimentiPerAzienda(int idAzienda)
+        {
+            List<Movimenti> listaDB = await this.SelezionaEntitaMovimentiPerAzienda(idAzienda);
+            listaDB.Where(element => element.ID_AZIENDA.Equals(idAzienda)).ToList();
+
+            List<MovimentoDTO> listaMovimenti = new List<MovimentoDTO>();
+            listaMovimenti = listaDB.Select(element => new MovimentoDTO
+            {
+
+                IdAzienda = element.ID_AZIENDA,
+                IdMovimento = element.ID_MOVIMENTO,
+                ValoreMovimento = element.VALORE_MOVIMENTO
+
+            }).ToList();
+
+            return listaMovimenti;
+        }
+
+        public async Task<MovimentoDTO> SelezionaMovimentoPerID(int idMovimento)
+        {
+            Movimenti infoDB = await this.SelezionaEntitaMovimentoPerID(idMovimento);
+
+            MovimentoDTO movimento = new MovimentoDTO();
             movimento.IdAzienda = infoDB.ID_AZIENDA;
             movimento.ValoreMovimento = infoDB.VALORE_MOVIMENTO;
 
@@ -57,32 +80,26 @@ namespace FinanceApp.Repository.InterfacesImpl
                 await Context.Movimenti.AddAsync(nuovoMovimento);
                 await Context.SaveChangesAsync();
                 return true;
-
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
+                await Console.Out.WriteLineAsync(ex.Message);
                 return false;
             }
         }
-
-        public async Task<bool> EliminaMovimento(int IdMovimento)
+        public async Task<bool> EliminaMovimento(int idMovimento)
         {
-            Movimenti? movimento = await Context.Movimenti.FirstOrDefaultAsync(element => element.ID_MOVIMENTO.Equals(IdMovimento));
-            
+            Movimenti movimento = await this.SelezionaEntitaMovimentoPerID(idMovimento);
+
             try
             {
-                if(movimento != null)
-                {
-                    Context.Movimenti.Remove(movimento);
-                    await Context.SaveChangesAsync();
-                    return true;
-
-                } else
-                {
-                    return false;
-                }
-            } catch (SqlException ex)
+                Context.Movimenti.Remove(movimento);
+                await Context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
             {
+                await Console.Out.WriteLineAsync(ex.Message);
                 return false;
             }
         }
