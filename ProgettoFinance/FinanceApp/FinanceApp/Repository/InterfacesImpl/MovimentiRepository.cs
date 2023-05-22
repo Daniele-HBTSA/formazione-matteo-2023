@@ -38,6 +38,18 @@ namespace FinanceApp.Repository.InterfacesImpl
             return infoDB;
         }
 
+        public async Task<MovimentoDTO> UltimoMovimento()
+        {
+            Movimenti? ultimoMovimento = await Context.Movimenti.LastOrDefaultAsync();
+
+            if (ultimoMovimento == null)
+            {
+                throw new Exception();
+            }
+
+            return await this.SelezionaMovimentoPerID(ultimoMovimento.ID_AZIENDA);
+        }
+
         /*================================================================*/
 
         public async Task<List<MovimentoDTO>> SelezionaMovimentiPerAzienda(int idAzienda)
@@ -69,39 +81,32 @@ namespace FinanceApp.Repository.InterfacesImpl
             return movimento;
         }
 
-        public async Task<bool> AggiungiMovimento(MovimentoDTO datiMovimento)
+        public async Task<MovimentoDTO> AggiungiMovimento(MovimentoDTO datiMovimento)
         {
             Movimenti nuovoMovimento = new Movimenti();
             nuovoMovimento.ID_AZIENDA = datiMovimento.IdAzienda;
             nuovoMovimento.VALORE_MOVIMENTO = datiMovimento.ValoreMovimento;
 
-            try
-            {
-                await Context.Movimenti.AddAsync(nuovoMovimento);
-                await Context.SaveChangesAsync();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                await Console.Out.WriteLineAsync(ex.Message);
-                return false;
-            }
-        }
-        public async Task<bool> EliminaMovimento(int idMovimento)
-        {
-            Movimenti movimento = await this.SelezionaEntitaMovimentoPerID(idMovimento);
+            await Context.Movimenti.AddAsync(nuovoMovimento);
+            await Context.SaveChangesAsync();
 
-            try
+            return await this.UltimoMovimento();
+        }
+
+        public async Task<MovimentoDTO> EliminaMovimento(int idMovimento)
+        {
+            MovimentoDTO movimentoDaEliminare = await this.SelezionaMovimentoPerID(idMovimento);
+            Movimenti entitaMovimento = await this.SelezionaEntitaMovimentoPerID(idMovimento);
+
+            if(movimentoDaEliminare.IdMovimento != entitaMovimento.ID_AZIENDA)
             {
-                Context.Movimenti.Remove(movimento);
-                await Context.SaveChangesAsync();
-                return true;
+                throw new Exception();
             }
-            catch (Exception ex)
-            {
-                await Console.Out.WriteLineAsync(ex.Message);
-                return false;
-            }
+
+            Context.Movimenti.Remove(entitaMovimento);
+            await Context.SaveChangesAsync();
+
+            return movimentoDaEliminare;
         }
     }
 }

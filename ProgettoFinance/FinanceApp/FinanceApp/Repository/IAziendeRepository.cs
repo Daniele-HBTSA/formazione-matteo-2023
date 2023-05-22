@@ -6,7 +6,7 @@ namespace FinanceApp.Repository
     {
         public Task<List<AziendaDTO>> SelezionaAziende();
         public Task<AziendaDTO> SelezionaAziendaPerID(int idAzienda);
-        public Task<bool> AggiungiAzienda(AziendaDTO datiAzienda);
+        public Task<AziendaDTO> AggiungiAzienda(AziendaDTO datiAzienda);
         public Task<bool> AggiornaSaldo(int idAzienda, int nuovoCapitale);
     }
 }

@@ -4,9 +4,10 @@ namespace FinanceApp.Services
 {
     public interface IMovimentiService
     {
-        public Task<List<MovimentoDTO>> MostraMovimenti(int IdAzienda);
-        public Task<bool> NuovoMovimento(MovimentoDTO nuovoMovimento);
-        public Task<bool> RimuoviMovimento(int IdRimuvomento);
+        public Task<List<MovimentoDTO>> MostraMovimenti(int idAzienda);
+        public Task<MovimentoDTO> SelezionaMovimento(int idMovimento);
+        public Task<MovimentoDTO> NuovoMovimento(MovimentoDTO nuovoMovimento);
+        public Task<MovimentoDTO> RimuoviMovimento(int IdRimuvomento);
         
     }
 }

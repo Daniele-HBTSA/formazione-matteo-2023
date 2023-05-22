@@ -19,10 +19,9 @@ namespace FinanceApp.Services.InterfacesImpl
             return await aziendeRepository.SelezionaAziende();
         }
 
-        public async Task<bool> NuovaAzienda(AziendaDTO datiAzienda)
+        public async Task<AziendaDTO> NuovaAzienda(AziendaDTO datiAzienda)
         {
-            bool risposta = await aziendeRepository.AggiungiAzienda(datiAzienda);
-            return risposta;
+            return await aziendeRepository.AggiungiAzienda(datiAzienda);
         }
 
         //Somma di tutti i movimenti

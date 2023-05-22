@@ -17,23 +17,19 @@ namespace FinanceApp.Services.InterfacesImpl
             return await movimentiRepository.SelezionaMovimentiPerAzienda(IdAzienda);
         }
 
-        public async Task<bool> NuovoMovimento(MovimentoDTO nuovoMovimento)
+        public async Task<MovimentoDTO> SelezionaMovimento(int idMovimento)
         {
-            if(nuovoMovimento != null)
-            {
-                bool risposta = await movimentiRepository.AggiungiMovimento(nuovoMovimento);
-                return risposta;
-
-            } else 
-            {
-                return false;
-            }
+            return await movimentiRepository.SelezionaMovimentoPerID(idMovimento);
         }
 
-        public async Task<bool> RimuoviMovimento(int idMovimento)
+        public async Task<MovimentoDTO> NuovoMovimento(MovimentoDTO nuovoMovimento)
         {
-            bool risposta = await movimentiRepository.EliminaMovimento(idMovimento);
-            return risposta;
+            return await movimentiRepository.AggiungiMovimento(nuovoMovimento); ;
+        }
+
+        public async Task<MovimentoDTO> RimuoviMovimento(int idMovimento)
+        {
+            return await movimentiRepository.EliminaMovimento(idMovimento);
         }
     }
 }

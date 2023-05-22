@@ -18,7 +18,7 @@ namespace FinanceApp.Repository.InterfacesImpl
         {
             List<Aziende>? listaDB = await Context.Aziende.ToListAsync();
 
-            if (listaDB == null)
+            if (listaDB.Count == 0)
             {
                 throw new Exception("Azienda non trovata");
             }
@@ -35,6 +35,18 @@ namespace FinanceApp.Repository.InterfacesImpl
                 throw new Exception("Azienda non trovata");
             }
             return infoDB;
+        }
+
+        public async Task<AziendaDTO> UltimaAzienda()
+        {
+            Aziende? ultimoAzienda = await Context.Aziende.LastOrDefaultAsync();
+
+            if (ultimoAzienda == null)
+            {
+                throw new Exception();
+            }
+
+            return await this.SelezionaAziendaPerID(ultimoAzienda.ID_AZIENDA);
         }
 
         /*================================================================*/
@@ -69,7 +81,7 @@ namespace FinanceApp.Repository.InterfacesImpl
             return azienda;
         }
 
-        public async Task<bool> AggiungiAzienda(AziendaDTO datiAzienda)
+        public async Task<AziendaDTO> AggiungiAzienda(AziendaDTO datiAzienda)
         {
             await Console.Out.WriteLineAsync(datiAzienda.ToString());
             Aziende nuovaAzienda = new Aziende();
@@ -78,18 +90,9 @@ namespace FinanceApp.Repository.InterfacesImpl
             nuovaAzienda.NOME_AZIENDA = datiAzienda.NomeAzienda;
             nuovaAzienda.SALDO_AZIENDA = datiAzienda.SaldoAzienda;
 
-            try
-            {
-                await Context.Aziende.AddAsync(nuovaAzienda);
-                await Context.SaveChangesAsync();
-                return true;
-
-            }
-            catch (Exception ex)
-            {
-                await Console.Out.WriteLineAsync(ex.Message);
-                return false;
-            }
+            await Context.Aziende.AddAsync(nuovaAzienda);
+            await Context.SaveChangesAsync();
+            return await this.UltimaAzienda();
         }
 
         public async Task<bool> AggiornaSaldo(int idAzienda, int nuovoSaldo)
