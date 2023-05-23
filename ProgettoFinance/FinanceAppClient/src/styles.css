@@ -1,1 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: darkgray;
+}
+
+app-root {
+    width: 85%;
+    background-color: cadetblue;
+    margin: 3% 2% 3% 2%;
+}
