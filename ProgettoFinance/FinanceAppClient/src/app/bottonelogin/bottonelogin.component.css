@@ -6,3 +6,10 @@ button {
     padding: 6px;
     width: 100%;
 }
+
+footer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
