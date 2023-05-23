@@ -5,6 +5,6 @@
     </div>
     <input type="text" placeholder="Account Azienda">
     <input type="password" placeholder="Password">
-    <app-bottonelogin></app-bottonelogin>
-    <app-bottoneregistrati></app-bottoneregistrati>
+    <app-bottonelogin *ngIf="accedi == true" (onFooterClick)="switchFooter($event)"></app-bottonelogin>
+    <app-bottoneregistrati *ngIf="registrati == true" (onFooterClick)="switchFooter($event)"></app-bottoneregistrati>
 </div>

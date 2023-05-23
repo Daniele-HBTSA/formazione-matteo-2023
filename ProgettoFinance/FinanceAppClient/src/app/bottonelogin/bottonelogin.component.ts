@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-bottonelogin',
@@ -7,9 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BottoneloginComponent implements OnInit {
 
+  @Output() 
+  onFooterClick = new EventEmitter();
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  click() {
+      this.onFooterClick.emit();
+  }
+   
 }
