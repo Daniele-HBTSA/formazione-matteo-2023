@@ -8,13 +8,19 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 export class BottoneregistratiComponent implements OnInit {
 
   @Output()
+  onButtonClick = new EventEmitter();
+  @Output()
   onFooterClick = new EventEmitter();
 
   constructor() { }
 
   ngOnInit(): void { }
 
-  click() {
+  buttonClick() {
+    this.onButtonClick.emit();
+  }
+
+  footerClick() {
     console.log("Hello there")
     this.onFooterClick.emit();
   }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-form-dati',
@@ -9,6 +9,8 @@ export class FormDatiComponent implements OnInit {
 
   accedi = true;
   registrati = false;
+  accountAzienda = "";
+  password = "";
 
   constructor() { }
 
@@ -23,8 +25,13 @@ export class FormDatiComponent implements OnInit {
       this.registrati = !this.registrati;
   }
 
+  tentaAccesso(){
+    console.log(this.accountAzienda + " " + this.password)
+  }
 
-
+  tentaRegistraz() {
+    console.log(this.accountAzienda + " " + this.password)
+  }
 
 
 }

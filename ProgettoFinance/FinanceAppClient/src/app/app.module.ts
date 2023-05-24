@@ -5,8 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormDatiComponent } from './form-dati/form-dati.component';
-import { BottoneloginComponent } from './bottonelogin/bottonelogin.component';
-import { BottoneregistratiComponent } from './bottoneregistrati/bottoneregistrati.component';
+import { BottoneloginComponent } from './form-dati/bottonelogin/bottonelogin.component';
+import { BottoneregistratiComponent } from './form-dati/bottoneregistrati/bottoneregistrati.component';
 
 @NgModule({
   declarations: [

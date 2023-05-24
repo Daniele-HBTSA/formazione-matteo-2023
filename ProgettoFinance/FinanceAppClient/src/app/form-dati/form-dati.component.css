@@ -13,9 +13,10 @@
 }
 
 .wrapper input {
-    width: 90%;
+    width: 80%;
     height: 30px;
     margin: 5px;
+    text-align: center;
 }
 
 app-bottonelogin {

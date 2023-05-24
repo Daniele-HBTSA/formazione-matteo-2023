@@ -3,8 +3,8 @@
         <h2>Benvenuto</h2>
         <h4>Inserisci i tuoi dati</h4>
     </div>
-    <input type="text" placeholder="Account Azienda">
-    <input type="password" placeholder="Password">
-    <app-bottonelogin *ngIf="accedi == true" (onFooterClick)="switchFooter($event)"></app-bottonelogin>
-    <app-bottoneregistrati *ngIf="registrati == true" (onFooterClick)="switchFooter($event)"></app-bottoneregistrati>
+    <input type="text" placeholder="Account Azienda" [(ngModel)]="accountAzienda">
+    <input type="password" placeholder="Password" [(ngModel)]="password">
+    <app-bottonelogin *ngIf="accedi == true" (onButtonClick)="tentaAccesso()" (onFooterClick)="switchFooter($event)"></app-bottonelogin>
+    <app-bottoneregistrati *ngIf="registrati == true" (onButtonClick)="tentaRegistraz()" (onFooterClick)="switchFooter($event)"></app-bottoneregistrati>
 </div>

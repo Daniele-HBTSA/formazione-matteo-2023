@@ -7,15 +7,20 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 })
 export class BottoneloginComponent implements OnInit {
 
+  @Output()
+  onButtonClick = new EventEmitter();
   @Output() 
   onFooterClick = new EventEmitter();
 
   constructor() { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { }
+
+  buttonClick() {
+    this.onButtonClick.emit();
   }
 
-  click() {
+  footerClick() {
     console.log("hello there")
     this.onFooterClick.emit();
   }
