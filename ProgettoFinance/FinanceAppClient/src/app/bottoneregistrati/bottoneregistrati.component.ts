@@ -15,6 +15,7 @@ export class BottoneregistratiComponent implements OnInit {
   ngOnInit(): void { }
 
   click() {
+    console.log("Hello there")
     this.onFooterClick.emit();
   }
 

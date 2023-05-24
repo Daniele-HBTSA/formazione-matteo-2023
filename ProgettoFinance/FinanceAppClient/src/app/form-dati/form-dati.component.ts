@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-form-dati',
@@ -18,15 +18,12 @@ export class FormDatiComponent implements OnInit {
   }
 
   switchFooter(event : void){
-    console.log("hello there")
-    if(this.accedi == true && this.registrati == false) {
-      this.accedi = false;
-      this.registrati = true;
-    } else {
-      this.accedi = true;
-      this.registrati = false;
-    }
+    console.log("general kenobi")
+      this.accedi = !this.accedi;
+      this.registrati = !this.registrati;
   }
+
+
 
 
 

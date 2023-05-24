@@ -16,7 +16,8 @@ export class BottoneloginComponent implements OnInit {
   }
 
   click() {
-      this.onFooterClick.emit();
+    console.log("hello there")
+    this.onFooterClick.emit();
   }
    
 }

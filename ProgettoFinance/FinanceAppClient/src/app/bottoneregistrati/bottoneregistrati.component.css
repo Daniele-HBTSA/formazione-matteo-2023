@@ -1,10 +1,10 @@
 button {
     font-size: 20px;
-    margin: 5px;
+    margin: 30px;
     border-radius: 5px;
     box-shadow: 0px 0px 10px cadetblue;
     padding: 6px;
-    width: 100%;
+    width: 45%;
 }
 
 footer {
@@ -12,6 +12,8 @@ footer {
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
+    width: 85%;
+    margin-top: 35px;
 }
 
 footer a {
