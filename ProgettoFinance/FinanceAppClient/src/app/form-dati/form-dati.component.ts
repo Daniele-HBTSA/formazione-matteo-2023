@@ -1,4 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { User } from '../models/User';
 import { AuthService } from '../services/auth.service';
 
@@ -12,46 +12,80 @@ export class FormDatiComponent implements OnInit {
   accedi = true;
   registrati = false;
   @Output()
-  rispostaServer = false;
+  rispostaServer = new EventEmitter<boolean>();
 
-  accountAzienda = "";
-  password = "";
-  nomeAzienda = "";
-  saldoAzienda = 0;
+  AccountAzienda = "";
+  PswAzienda = "";
+  NomeAzienda? = "";
+  SaldoAzienda = 0;
 
   constructor(private auth : AuthService) { }
 
   ngOnInit(): void {
     this.accedi = true;
     this.registrati = false;
-    this.rispostaServer = false;
   }
 
   switchFooter(){
     console.log("general kenobi")
-      this.accedi = !this.accedi;
-      this.registrati = !this.registrati;
+    this.accedi = !this.accedi;
+    this.registrati = !this.registrati;
   }
 
   richiediAccesso(){
     const utente : User = {
-      accountAzienda : this.accountAzienda,
-      password : this.password
+      AccountAzienda : this.AccountAzienda,
+      PswAzienda : this.PswAzienda
     }
 
-    if(this.auth.tentaLogin(utente)) 
-      this.rispostaServer = true;
+    this.auth.tentaLogin(utente).subscribe({
+      next : (risposta : boolean) => {
+        if(risposta){ 
+          alert("Login riuscito");
+          this.rispostaServer.emit(risposta);
+
+        }
+        else {
+          alert("Il nome utente e/o la password sono errati!");
+          this.rispostaServer.emit(risposta);
+
+        }
+      },
+      error(err) {
+        alert("Error: " + err);
+
+      }
+    })
   }
 
   richiediRegistraz() {
     const nuovoUtente : User = {
-      accountAzienda : this.accountAzienda,
-      password : this.password,
-      nomeAzienda : this.nomeAzienda,
-      saldoAzienda : this.saldoAzienda
+      AccountAzienda : this.AccountAzienda,
+      PswAzienda : this.PswAzienda,
+      NomeAzienda : this.NomeAzienda,
+      SaldoAzienda : this.SaldoAzienda
     }
 
-    if(this.auth.tentaRegistraz(nuovoUtente))
-      this.rispostaServer = true;
+    this.auth.tentaRegistraz(nuovoUtente).subscribe({
+      next : (risposta : boolean) => {
+        if(risposta){ 
+          alert("Registrazione riuscita, autenticati");
+          this.rispostaServer.emit(risposta);
+
+        }
+        else {
+          alert("Utente già esistente");
+          this.rispostaServer.emit(risposta);
+
+        }
+      },
+      error(err) {
+        alert("Error: " + err);
+
+      }
+    })
   }
+
+
+
 }

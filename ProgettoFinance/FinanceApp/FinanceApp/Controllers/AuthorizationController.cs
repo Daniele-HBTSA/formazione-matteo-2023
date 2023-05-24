@@ -15,12 +15,11 @@ namespace FinanceApp.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult> TentaLogin(AziendaDTO azienda)
+        public async Task<ActionResult> TentaLogin([FromBody]AziendaDTO azienda)
         {
             try
             {
-                bool risposta = await authService.Autenticazione(azienda.AccountAzienda, azienda.PswAzienda);
-                return Ok(risposta);
+                return Ok(await authService.Autenticazione(azienda.AccountAzienda, azienda.PswAzienda));
 
             }
             catch (Exception ex)
@@ -31,12 +30,11 @@ namespace FinanceApp.Controllers
         }
 
         [HttpPost("registrati")]
-        public async Task<ActionResult> TentaRegistrazione([FromBody] AziendaDTO nuovaAzienda)
+        public async Task<ActionResult> TentaRegistrazione([FromBody]AziendaDTO nuovaAzienda)
         {
             try
             {
-                bool risposta = await authService.Registrazione(nuovaAzienda);
-                if (risposta)
+                if (await authService.Registrazione(nuovaAzienda))
                 {
                     await Console.Out.WriteLineAsync("Registrazione avvenuta con successo.");
                     return Ok(true);

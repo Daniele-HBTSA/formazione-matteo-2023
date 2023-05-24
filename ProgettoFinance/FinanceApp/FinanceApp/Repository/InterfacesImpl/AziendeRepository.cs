@@ -1,6 +1,7 @@
 ﻿using FinanceApp.Context;
 using FinanceApp.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace FinanceApp.Repository.InterfacesImpl
 {
@@ -39,7 +40,7 @@ namespace FinanceApp.Repository.InterfacesImpl
 
         public async Task<AziendaDTO> UltimaAzienda()
         {
-            Aziende? ultimoAzienda = await Context.Aziende.LastOrDefaultAsync();
+            Aziende? ultimoAzienda = await Context.Aziende.OrderBy(element => element.ID_AZIENDA).LastOrDefaultAsync();
 
             if (ultimoAzienda == null)
             {

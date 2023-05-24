@@ -3,10 +3,10 @@
         <h2>Benvenuto</h2>
         <h4>Inserisci i tuoi dati</h4>
     </div>
-    <input type="text" placeholder="Account Azienda" [(ngModel)]="accountAzienda">
-    <input type="password" placeholder="Password" [(ngModel)]="password">
-    <input *ngIf="registrati == true" type="text" placeholder="Nome Azienda" [(ngModel)]="nomeAzienda">
-    <input *ngIf="registrati == true" type="number" placeholder="Saldo" [(ngModel)]="saldoAzienda">
+    <input type="text" placeholder="Account Azienda" [(ngModel)]="AccountAzienda">
+    <input type="password" placeholder="Password" [(ngModel)]="PswAzienda">
+    <input *ngIf="registrati == true" type="text" placeholder="Nome Azienda" [(ngModel)]="NomeAzienda">
+    <input *ngIf="registrati == true" type="number" placeholder="Saldo" [(ngModel)]="SaldoAzienda">
     <p *ngIf="registrati == true">A quanto ammonta il tuo capitale?</p>
     <app-bottonelogin *ngIf="accedi == true" (onButtonClick)="richiediAccesso()" (onFooterClick)="switchFooter()"></app-bottonelogin>
     <app-bottoneregistrati *ngIf="registrati == true" (onButtonClick)="richiediRegistraz()" (onFooterClick)="switchFooter()"></app-bottoneregistrati>

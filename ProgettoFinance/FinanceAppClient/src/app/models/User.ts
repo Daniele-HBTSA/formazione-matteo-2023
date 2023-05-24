@@ -1,6 +1,6 @@
 export interface User {
-    accountAzienda : string
-    password : string
-    nomeAzienda? : string
-    saldoAzienda? : number
+    AccountAzienda : string
+    PswAzienda : string
+    NomeAzienda? : string
+    SaldoAzienda? : number
 }
