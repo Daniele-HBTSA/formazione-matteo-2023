@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { FormDatiComponent } from './form-dati/form-dati.component';
 import { BottoneloginComponent } from './form-dati/bottonelogin/bottonelogin.component';
 import { BottoneregistratiComponent } from './form-dati/bottoneregistrati/bottoneregistrati.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { BottoneregistratiComponent } from './form-dati/bottoneregistrati/botton
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

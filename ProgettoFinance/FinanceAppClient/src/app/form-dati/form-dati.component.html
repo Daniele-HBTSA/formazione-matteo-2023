@@ -5,6 +5,9 @@
     </div>
     <input type="text" placeholder="Account Azienda" [(ngModel)]="accountAzienda">
     <input type="password" placeholder="Password" [(ngModel)]="password">
-    <app-bottonelogin *ngIf="accedi == true" (onButtonClick)="tentaAccesso()" (onFooterClick)="switchFooter($event)"></app-bottonelogin>
-    <app-bottoneregistrati *ngIf="registrati == true" (onButtonClick)="tentaRegistraz()" (onFooterClick)="switchFooter($event)"></app-bottoneregistrati>
+    <input *ngIf="registrati == true" type="text" placeholder="Nome Azienda" [(ngModel)]="nomeAzienda">
+    <input *ngIf="registrati == true" type="number" placeholder="Saldo" [(ngModel)]="saldoAzienda">
+    <p *ngIf="registrati == true">A quanto ammonta il tuo capitale?</p>
+    <app-bottonelogin *ngIf="accedi == true" (onButtonClick)="richiediAccesso()" (onFooterClick)="switchFooter()"></app-bottonelogin>
+    <app-bottoneregistrati *ngIf="registrati == true" (onButtonClick)="richiediRegistraz()" (onFooterClick)="switchFooter()"></app-bottoneregistrati>
 </div>

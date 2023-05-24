@@ -2,7 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-bottonelogin',
-  templateUrl: './bottonelogin.component.html',
+  templateUrl: '../bottonelogin/bottonelogin.component.html',
   styleUrls: ['./bottonelogin.component.css']
 })
 export class BottoneloginComponent implements OnInit {
