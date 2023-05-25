@@ -8,6 +8,7 @@
     <input *ngIf="registrati == true" type="text" placeholder="Nome Azienda" [(ngModel)]="NomeAzienda">
     <input *ngIf="registrati == true" type="number" placeholder="Saldo" [(ngModel)]="SaldoAzienda">
     <p *ngIf="registrati == true">A quanto ammonta il tuo capitale?</p>
+
     <app-bottonelogin *ngIf="accedi == true" (onButtonClick)="richiediAccesso()" (onFooterClick)="switchFooter()"></app-bottonelogin>
     <app-bottoneregistrati *ngIf="registrati == true" (onButtonClick)="richiediRegistraz()" (onFooterClick)="switchFooter()"></app-bottoneregistrati>
 </div>

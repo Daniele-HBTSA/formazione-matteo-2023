@@ -59,6 +59,7 @@ namespace FinanceApp.Repository.InterfacesImpl
             List<Aziende> listaDB = await this.SelezionaEntitaAziende();
             listaAziende = listaDB.Select(element => new AziendaDTO
             {
+                IdAzienda = element.ID_AZIENDA,
                 AccountAzienda = element.ACCOUNT_AZIENDA,
                 PswAzienda = element.PASSWORD_AZIENDA,
                 NomeAzienda = element.NOME_AZIENDA,
@@ -74,6 +75,7 @@ namespace FinanceApp.Repository.InterfacesImpl
             Aziende infoDB = await this.SelezionaEntitaAziendaPerID(idAzienda);
 
             AziendaDTO azienda = new AziendaDTO();
+            azienda.IdAzienda = infoDB.ID_AZIENDA;
             azienda.AccountAzienda = infoDB.ACCOUNT_AZIENDA;
             azienda.PswAzienda = infoDB.PASSWORD_AZIENDA;
             azienda.NomeAzienda = infoDB.NOME_AZIENDA;
@@ -96,23 +98,19 @@ namespace FinanceApp.Repository.InterfacesImpl
             return await this.UltimaAzienda();
         }
 
-        public async Task<bool> AggiornaSaldo(int idAzienda, int nuovoSaldo)
+        public async Task<int> AggiornaSaldo(int idAzienda, int nuovoSaldo)
         {
             Aziende aziendaDB = await this.SelezionaEntitaAziendaPerID(idAzienda);
-            aziendaDB.SALDO_AZIENDA += nuovoSaldo;
-
-            try
+            if(nuovoSaldo != 0)
             {
-                Context.Aziende.Update(aziendaDB);
-                await Context.SaveChangesAsync();
-                return true;
+                aziendaDB.SALDO_AZIENDA += nuovoSaldo;
 
             }
-            catch (Exception ex)
-            {
-                await Console.Out.WriteLineAsync(ex.Message);
-                return false;
-            }
+
+            Context.Aziende.Update(aziendaDB);
+            await Context.SaveChangesAsync();
+            return aziendaDB.SALDO_AZIENDA.GetValueOrDefault();
+
         }
     }
 }

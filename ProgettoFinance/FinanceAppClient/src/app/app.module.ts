@@ -8,13 +8,15 @@ import { FormDatiComponent } from './form-dati/form-dati.component';
 import { BottoneloginComponent } from './form-dati/bottonelogin/bottonelogin.component';
 import { BottoneregistratiComponent } from './form-dati/bottoneregistrati/bottoneregistrati.component';
 import { HttpClientModule } from '@angular/common/http';
+import { TabellaMovimentiComponent } from './tabella-movimenti/tabella-movimenti.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FormDatiComponent,
     BottoneloginComponent,
-    BottoneregistratiComponent
+    BottoneregistratiComponent,
+    TabellaMovimentiComponent
   ],
   imports: [
     BrowserModule,

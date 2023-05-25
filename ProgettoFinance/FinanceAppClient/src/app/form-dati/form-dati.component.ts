@@ -14,6 +14,7 @@ export class FormDatiComponent implements OnInit {
   @Output()
   rispostaServer = new EventEmitter<boolean>();
 
+  IdAzienda? = 0;
   AccountAzienda = "";
   PswAzienda = "";
   NomeAzienda? = "";
@@ -39,15 +40,14 @@ export class FormDatiComponent implements OnInit {
     }
 
     this.auth.tentaLogin(utente).subscribe({
-      next : (risposta : boolean) => {
-        if(risposta){ 
-          alert("Login riuscito");
-          this.rispostaServer.emit(risposta);
+      next : (risposta : User) => {
+        if(risposta != null){ 
+          this.rispostaServer.emit(true);
 
         }
         else {
           alert("Il nome utente e/o la password sono errati!");
-          this.rispostaServer.emit(risposta);
+          this.rispostaServer.emit(false);
 
         }
       },
@@ -67,15 +67,13 @@ export class FormDatiComponent implements OnInit {
     }
 
     this.auth.tentaRegistraz(nuovoUtente).subscribe({
-      next : (risposta : boolean) => {
+      next : (risposta : User) => {
         if(risposta){ 
           alert("Registrazione riuscita, autenticati");
-          this.rispostaServer.emit(risposta);
 
         }
         else {
           alert("Utente già esistente");
-          this.rispostaServer.emit(risposta);
 
         }
       },
@@ -85,7 +83,4 @@ export class FormDatiComponent implements OnInit {
       }
     })
   }
-
-
-
 }

@@ -1,4 +1,5 @@
 export interface Movimento {
-    idAzienda : string
-    valoreMovimento : string
+    IdMovimento? : number
+    IdAzienda : number
+    ValoreMovimento : number
 }

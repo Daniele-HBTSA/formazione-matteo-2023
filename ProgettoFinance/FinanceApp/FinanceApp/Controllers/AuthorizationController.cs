@@ -15,7 +15,7 @@ namespace FinanceApp.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult> TentaLogin([FromBody]AziendaDTO azienda)
+        public async Task<ActionResult<AziendaDTO>> TentaLogin([FromBody]AziendaDTO azienda)
         {
             try
             {
@@ -24,7 +24,6 @@ namespace FinanceApp.Controllers
             }
             catch (Exception ex)
             {
-                await Console.Out.WriteLineAsync($"Login fallito {ex.Message}");
                 return BadRequest(false);
             }
         }
@@ -36,12 +35,10 @@ namespace FinanceApp.Controllers
             {
                 if (await authService.Registrazione(nuovaAzienda))
                 {
-                    await Console.Out.WriteLineAsync("Registrazione avvenuta con successo.");
                     return Ok(true);
                 }
                 else
                 {
-                    await Console.Out.WriteLineAsync("Utente già esistente.");
                     return Ok(false);
                 }
             }

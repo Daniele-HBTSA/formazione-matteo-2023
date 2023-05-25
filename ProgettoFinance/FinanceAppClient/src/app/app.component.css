@@ -45,3 +45,10 @@ app-form-dati {
     display: flex;
     flex-direction: column;
 }
+
+app-tabella-movimenti {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}

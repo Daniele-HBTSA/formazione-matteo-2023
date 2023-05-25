@@ -4,6 +4,9 @@ namespace FinanceApp.Models
 {
     public class AziendaDTO
     {
+        [JsonPropertyName("IdAzienda")]
+        public int IdAzienda { get; set; }
+
         [JsonPropertyName("AccountAzienda")]
         public string AccountAzienda { get; set; } = null!;
 

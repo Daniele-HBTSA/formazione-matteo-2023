@@ -6,6 +6,6 @@ namespace FinanceApp.Services
     {
         public Task<List<AziendaDTO>> ElencoAziende();
         public Task<AziendaDTO> NuovaAzienda(AziendaDTO datiAzienda);
-        public Task<bool> CalcolaSaldoAzienda(int idAzienda);
+        public Task<int> CalcolaSaldoAzienda(int idAzienda);
     }
 }

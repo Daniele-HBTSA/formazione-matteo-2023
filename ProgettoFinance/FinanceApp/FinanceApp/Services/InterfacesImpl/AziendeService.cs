@@ -25,13 +25,12 @@ namespace FinanceApp.Services.InterfacesImpl
         }
 
         //Somma di tutti i movimenti
-        public async Task<bool> CalcolaSaldoAzienda(int idAzienda)
+        public async Task<int> CalcolaSaldoAzienda(int idAzienda)
         {
             List<MovimentoDTO> elencoMovimenti = await movimentiRepository.SelezionaMovimentiPerAzienda(idAzienda);
 
             int nuovoSaldo = elencoMovimenti.Sum(element => element.ValoreMovimento);
-            bool risposta = await aziendeRepository.AggiornaSaldo(idAzienda, nuovoSaldo);
-            return risposta;
+            return await aziendeRepository.AggiornaSaldo(idAzienda, nuovoSaldo);
         }
     }
 }

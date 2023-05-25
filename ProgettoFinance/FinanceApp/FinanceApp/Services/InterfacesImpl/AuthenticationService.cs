@@ -28,26 +28,18 @@ namespace FinanceApp.Services.InterfacesImpl
 
         /*================================================================*/
 
-        public async Task<bool> Autenticazione(string username, string password)
+        public async Task<AziendaDTO> Autenticazione(string username, string password)
         {
             List<AziendaDTO> listaAziende = await this.SelezionaElencoEntitaAziende();
-
-            if (listaAziende.Exists(element => element.AccountAzienda.Equals(username)))
+            AziendaDTO? aziendaCorrente = listaAziende.FirstOrDefault(element => element.AccountAzienda.Contains(username) && element.PswAzienda.Contains(password));
+            
+            if(aziendaCorrente == null)
             {
-                if(listaAziende.Exists(element => element.PswAzienda.Equals(password)))
-                {
-                    return true;
-
-                } else
-                {
-                    await Console.Out.WriteLineAsync("Password sbagliata");
-                    return false;
-                }
-            } else
-            {
-                await Console.Out.WriteLineAsync("Account sbagliato");
-                return false;
+                throw new Exception();
             }
+
+            return aziendaCorrente;
+
         }
 
         public async Task<bool> Registrazione(AziendaDTO nuovaAzienda)

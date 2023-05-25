@@ -1,0 +1,29 @@
+<div class="wrapperEsternoTabella">
+    <div class="wrapperNuovoMov">
+        <button (click)="aggiungiMovimento(nuovoMovimento)"><p style="font-weight: bold;">Aggiungi movimento</p></button>
+        <input type="number" [(ngModel)]="nuovoMovimento">
+    </div>
+   <div class="wrapperTabella">
+        <div class="DatiAzienda">
+            <h3>{{ UtenteCorrente?.NomeAzienda }}</h3>
+            <h2>Saldo: {{ UtenteCorrente?.SaldoAzienda }}</h2>
+        </div>
+        <div class="wrapperMovimenti">
+           <table>
+                <thead>
+                    <tr>
+                        <th>Id Movimento</th>
+                        <th>Valore</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let movimento of elencoMovimenti, let i = index">
+                        <td>{{ movimento.IdMovimento }}</td>
+                        <td class="tdConBottone">{{ movimento.ValoreMovimento }}<button (click)="eliminaMovimento(i, movimento.IdMovimento)">Elimina</button></td>
+                    </tr>
+                </tbody>
+           </table>
+        </div>
+   </div>
+   <button class="logout">Logout</button>
+</div>

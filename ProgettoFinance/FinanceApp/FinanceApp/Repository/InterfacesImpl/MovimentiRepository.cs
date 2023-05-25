@@ -40,7 +40,8 @@ namespace FinanceApp.Repository.InterfacesImpl
 
         public async Task<MovimentoDTO> UltimoMovimento()
         {
-            Movimenti? ultimoMovimento = await Context.Movimenti.LastOrDefaultAsync();
+
+            Movimenti? ultimoMovimento = await Context.Movimenti.OrderBy(element => element.ID_MOVIMENTO).LastOrDefaultAsync();
 
             if (ultimoMovimento == null)
             {
@@ -76,6 +77,7 @@ namespace FinanceApp.Repository.InterfacesImpl
 
             MovimentoDTO movimento = new MovimentoDTO();
             movimento.IdAzienda = infoDB.ID_AZIENDA;
+            movimento.IdMovimento = infoDB.ID_MOVIMENTO;
             movimento.ValoreMovimento = infoDB.VALORE_MOVIMENTO;
 
             return movimento;
@@ -98,7 +100,7 @@ namespace FinanceApp.Repository.InterfacesImpl
             MovimentoDTO movimentoDaEliminare = await this.SelezionaMovimentoPerID(idMovimento);
             Movimenti entitaMovimento = await this.SelezionaEntitaMovimentoPerID(idMovimento);
 
-            if(movimentoDaEliminare.IdMovimento != entitaMovimento.ID_AZIENDA)
+            if(movimentoDaEliminare.IdMovimento != entitaMovimento.ID_MOVIMENTO)
             {
                 throw new Exception();
             }

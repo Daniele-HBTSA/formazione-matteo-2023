@@ -30,21 +30,23 @@ namespace FinanceApp.Controllers
             {
                 return Ok(await movimentiService.MostraMovimenti(idAzienda));
 
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 return NotFound(false);
             }
         }
 
         //Mostra movimenti dell'azienda per idmovimento
-        [HttpGet("mostramovimenti/{idMovimento}")]
+        [HttpGet("selezionamovimento/{idMovimento}")]
         public async Task<ActionResult<MovimentoDTO>> SelezionaMovimento(int idMovimento)
         {
             try
             {
                 return Ok(await movimentiService.SelezionaMovimento(idMovimento));
 
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 return NotFound(false);
             }
@@ -52,7 +54,7 @@ namespace FinanceApp.Controllers
 
         //Aggiungi nuovo movimento
         [HttpPost("aggiungi")]
-        public async Task<ActionResult> AggiungiMovimento([FromBody] MovimentoDTO nuovoMovimento)
+        public async Task<ActionResult<int>> AggiungiMovimento([FromBody] MovimentoDTO nuovoMovimento)
         {
             try
             {
@@ -61,11 +63,13 @@ namespace FinanceApp.Controllers
                 {
                     return Ok(await aziendeService.CalcolaSaldoAzienda(nuovoMovimento.IdAzienda));
 
-                } else
+                }
+                else
                 {
                     return Ok(false);
                 }
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 return BadRequest(false);
             }
@@ -73,13 +77,20 @@ namespace FinanceApp.Controllers
 
         //Rimuovi movimento
         [HttpDelete("rimuovi/{idMovimento}")]
-        public async Task<ActionResult<MovimentoDTO>> CancellaMovimento(int idMovimento)
+        public async Task<ActionResult<int>> CancellaMovimento(int idMovimento)
         {
             try
             {
-                return Ok(await movimentiService.RimuoviMovimento(idMovimento));
+                MovimentoDTO movimentoEliminato = await movimentiService.RimuoviMovimento(idMovimento);
+                if (movimentoEliminato == null)
+                {
+                    return NotFound(false);
+                }
+                
+                return Ok(await aziendeService.CalcolaSaldoAzienda(movimentoEliminato.IdAzienda));
 
-            } catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 return NotFound(false);
             }
