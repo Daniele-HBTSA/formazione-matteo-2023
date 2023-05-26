@@ -1,4 +1,5 @@
 ﻿using FinanceApp.Models;
+using FinanceApp.Utils.Enums;
 
 namespace FinanceApp.Services
 {
@@ -6,6 +7,6 @@ namespace FinanceApp.Services
     {
         public Task<List<AziendaDTO>> ElencoAziende();
         public Task<AziendaDTO> NuovaAzienda(AziendaDTO datiAzienda);
-        public Task<int> CalcolaSaldoAzienda(int idAzienda);
+        public Task<int> CalcolaSaldoAzienda(MovimentoDTO movimento, Operazione tipoOperazione);
     }
 }

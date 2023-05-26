@@ -7,6 +7,9 @@
         <div class="DatiAzienda">
             <h3>{{ UtenteCorrente?.NomeAzienda }}</h3>
             <h2>Saldo: {{ UtenteCorrente?.SaldoAzienda }}</h2>
+            <div class="bottoneLogout">
+                <button class="logout" (click)="logout()">Logout</button>
+            </div>
         </div>
         <div class="wrapperMovimenti">
            <table>
@@ -25,5 +28,6 @@
            </table>
         </div>
    </div>
-   <button class="logout">Logout</button>
+   
+   
 </div>

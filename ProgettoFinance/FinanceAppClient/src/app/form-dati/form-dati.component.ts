@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { User } from '../models/User';
 import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-form-dati',
@@ -20,7 +21,7 @@ export class FormDatiComponent implements OnInit {
   NomeAzienda? = "";
   SaldoAzienda = 0;
 
-  constructor(private auth : AuthService) { }
+  constructor(private auth : AuthService, private router : Router) { }
 
   ngOnInit(): void {
     this.accedi = true;
@@ -43,7 +44,7 @@ export class FormDatiComponent implements OnInit {
       next : (risposta : User) => {
         if(risposta != null){ 
           this.rispostaServer.emit(true);
-
+          this.router.navigateByUrl("tabella/")
         }
         else {
           alert("Il nome utente e/o la password sono errati!");

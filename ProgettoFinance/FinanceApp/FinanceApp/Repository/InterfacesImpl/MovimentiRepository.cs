@@ -48,7 +48,7 @@ namespace FinanceApp.Repository.InterfacesImpl
                 throw new Exception();
             }
 
-            return await this.SelezionaMovimentoPerID(ultimoMovimento.ID_AZIENDA);
+            return await this.SelezionaMovimentoPerID(ultimoMovimento.ID_MOVIMENTO);
         }
 
         /*================================================================*/

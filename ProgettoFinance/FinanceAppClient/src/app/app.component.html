@@ -4,7 +4,7 @@
         <img *ngIf="rispostaServer == false" src="https://www.notizienazionali.it/archivi/immagini/2021/S/stretta.jpg" alt=""> <!--ngIf per far sparire l'immagine-->
         <app-tabella-movimenti *ngIf="rispostaServer == true"></app-tabella-movimenti>
     </div>
-    <div class="latoDx" *ngIf="rispostaServer == false"> <!--ngIf per far sparire il div-->
+    <div class="latoDx" *ngIf="rispostaServer == false">
         <app-form-dati (rispostaServer)="rispostaServer = $event"></app-form-dati> 
     </div>
 </div>

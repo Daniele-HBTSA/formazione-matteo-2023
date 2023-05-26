@@ -1,5 +1,6 @@
 ﻿using FinanceApp.Models;
 using FinanceApp.Services;
+using FinanceApp.Utils.Enums;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinanceApp.Controllers
@@ -61,7 +62,7 @@ namespace FinanceApp.Controllers
                 MovimentoDTO movimentoAggiunto = await movimentiService.NuovoMovimento(nuovoMovimento);
                 if (movimentoAggiunto != null)
                 {
-                    return Ok(await aziendeService.CalcolaSaldoAzienda(nuovoMovimento.IdAzienda));
+                    return Ok(await aziendeService.CalcolaSaldoAzienda(nuovoMovimento, Operazione.ADDIZIONE));
 
                 }
                 else
@@ -87,7 +88,7 @@ namespace FinanceApp.Controllers
                     return NotFound(false);
                 }
                 
-                return Ok(await aziendeService.CalcolaSaldoAzienda(movimentoEliminato.IdAzienda));
+                return Ok(await aziendeService.CalcolaSaldoAzienda(movimentoEliminato, Operazione.SOTTRAZIONE));
 
             }
             catch (Exception ex)

@@ -1,16 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { TabellaMovimentiService } from '../services/tabella-movimenti.service';
 import { Movimento } from '../models/Movimento';
 import { AuthService } from '../services/auth.service';
 import { User } from '../models/User';
 import { MovimentiService } from '../services/movimenti.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tabella-movimenti',
   templateUrl: './tabella-movimenti.component.html',
   styleUrls: ['./tabella-movimenti.component.css']
 })
-export class TabellaMovimentiComponent implements OnInit {
+export class TabellaMovimentiComponent implements OnInit, OnDestroy {
+  @Output()
+  visualizza = new EventEmitter<boolean>();
   UtenteCorrente? : User = undefined
   idUtenteCorrente = 0;
 
@@ -18,7 +21,11 @@ export class TabellaMovimentiComponent implements OnInit {
   nuovoMovimento = 0;  
   idcliccato = 0;
 
-  constructor(private tabellaDB : TabellaMovimentiService, private mov : MovimentiService, private auth : AuthService) { }
+  constructor(private tabellaDB : TabellaMovimentiService, 
+              private mov : MovimentiService, 
+              private auth : AuthService,
+              private router : Router) { }
+
 
   ngOnInit(): void {
     this.UtenteCorrente = this.auth.utenteLoggato;
@@ -91,7 +98,13 @@ export class TabellaMovimentiComponent implements OnInit {
   }
 
   logout(){
+    this.visualizza.emit(false);
+    this.router.navigateByUrl("benvenuto/");
+  }
+
+  ngOnDestroy(): void {
     this.UtenteCorrente = undefined;
+    this.elencoMovimenti = [];
   }
 
 }

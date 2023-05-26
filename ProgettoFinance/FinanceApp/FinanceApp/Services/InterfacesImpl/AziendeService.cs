@@ -1,5 +1,6 @@
 ﻿using FinanceApp.Models;
 using FinanceApp.Repository;
+using FinanceApp.Utils.Enums;
 
 namespace FinanceApp.Services.InterfacesImpl
 {
@@ -24,13 +25,9 @@ namespace FinanceApp.Services.InterfacesImpl
             return await aziendeRepository.AggiungiAzienda(datiAzienda);
         }
 
-        //Somma di tutti i movimenti
-        public async Task<int> CalcolaSaldoAzienda(int idAzienda)
+        public async Task<int> CalcolaSaldoAzienda(MovimentoDTO movimento, Operazione tipoOperazione)
         {
-            List<MovimentoDTO> elencoMovimenti = await movimentiRepository.SelezionaMovimentiPerAzienda(idAzienda);
-
-            int nuovoSaldo = elencoMovimenti.Sum(element => element.ValoreMovimento);
-            return await aziendeRepository.AggiornaSaldo(idAzienda, nuovoSaldo);
+            return await aziendeRepository.AggiornaSaldo(movimento, tipoOperazione);
         }
     }
 }

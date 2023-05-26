@@ -1,5 +1,6 @@
 ﻿using FinanceApp.Context;
 using FinanceApp.Models;
+using FinanceApp.Utils.Enums;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
@@ -97,20 +98,38 @@ namespace FinanceApp.Repository.InterfacesImpl
             await Context.SaveChangesAsync();
             return await this.UltimaAzienda();
         }
-
-        public async Task<int> AggiornaSaldo(int idAzienda, int nuovoSaldo)
+        public async Task<int> AggiornaSaldo(MovimentoDTO movimento, Operazione tipoOperazione)
         {
-            Aziende aziendaDB = await this.SelezionaEntitaAziendaPerID(idAzienda);
-            if(nuovoSaldo != 0)
+            Aziende aziendaDB = await this.SelezionaEntitaAziendaPerID(movimento.IdAzienda);
+            if (tipoOperazione.Equals(Operazione.ADDIZIONE))
             {
-                aziendaDB.SALDO_AZIENDA += nuovoSaldo;
-
+                aziendaDB.SALDO_AZIENDA += movimento.ValoreMovimento;
+                Context.Aziende.Update(aziendaDB);
+                await Context.SaveChangesAsync();
+            }
+            else if (tipoOperazione.Equals(Operazione.SOTTRAZIONE))
+            {
+                aziendaDB.SALDO_AZIENDA -= movimento.ValoreMovimento;
+                Context.Aziende.Update(aziendaDB);
+                await Context.SaveChangesAsync();
             }
 
-            Context.Aziende.Update(aziendaDB);
-            await Context.SaveChangesAsync();
             return aziendaDB.SALDO_AZIENDA.GetValueOrDefault();
-
         }
+
+        //public async Task<int> AggiornaSaldo(int idAzienda, int nuovoSaldo)
+        //{
+        //    Aziende aziendaDB = await this.SelezionaEntitaAziendaPerID(idAzienda);
+        //    if(nuovoSaldo != 0)
+        //    {
+        //        aziendaDB.SALDO_AZIENDA += nuovoSaldo;
+
+        //    }
+
+        //    Context.Aziende.Update(aziendaDB);
+        //    await Context.SaveChangesAsync();
+        //    return aziendaDB.SALDO_AZIENDA.GetValueOrDefault();
+
+        //}
     }
 }
