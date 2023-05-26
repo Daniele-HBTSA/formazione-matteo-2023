@@ -5,20 +5,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
-import { HomeComponent } from './home/home.component';
-import { WrapperComponent } from './wrapper/wrapper.component';
-import { FormComponent } from './form/form.component';
-import { BottoneLogInComponent } from './bottone-log-in/bottone-log-in.component';
-import { BottoneRegisterComponent } from './bottone-register/bottone-register.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
-    WrapperComponent,
-    FormComponent,
-    BottoneLogInComponent,
-    BottoneRegisterComponent
   ],
   imports: [
     BrowserModule,
