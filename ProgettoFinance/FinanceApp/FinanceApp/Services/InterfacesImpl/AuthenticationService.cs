@@ -31,7 +31,7 @@ namespace FinanceApp.Services.InterfacesImpl
         public async Task<AziendaDTO> Autenticazione(string username, string password)
         {
             List<AziendaDTO> listaAziende = await this.SelezionaElencoEntitaAziende();
-            AziendaDTO? aziendaCorrente = listaAziende.FirstOrDefault(element => element.AccountAzienda.Contains(username) && element.PswAzienda.Contains(password));
+            AziendaDTO? aziendaCorrente = listaAziende.FirstOrDefault(element => element.AccountAzienda.Equals(username) && element.PswAzienda.Equals(password));
             
             if(aziendaCorrente == null)
             {

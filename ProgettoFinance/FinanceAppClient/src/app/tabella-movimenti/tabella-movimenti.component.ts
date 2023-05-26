@@ -69,6 +69,7 @@ export class TabellaMovimentiComponent implements OnInit, OnDestroy {
           if(risposta) {
             this.getTabella(this.idUtenteCorrente)
             this.setSaldoUtente(risposta)
+            this.nuovoMovimento = 0;
 
           } else 
             alert("Errore")
@@ -99,7 +100,7 @@ export class TabellaMovimentiComponent implements OnInit, OnDestroy {
 
   logout(){
     this.visualizza.emit(false);
-    this.router.navigateByUrl("benvenuto/");
+    this.router.navigateByUrl("financeapp")
   }
 
   ngOnDestroy(): void {

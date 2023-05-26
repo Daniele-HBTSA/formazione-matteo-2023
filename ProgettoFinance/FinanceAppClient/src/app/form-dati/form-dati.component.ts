@@ -29,59 +29,81 @@ export class FormDatiComponent implements OnInit {
   }
 
   switchFooter(){
-    console.log("general kenobi")
+    this.AccountAzienda = "";
+    this.PswAzienda = "";
+    this.NomeAzienda = "";
+    this.SaldoAzienda = 0;
     this.accedi = !this.accedi;
     this.registrati = !this.registrati;
   }
 
+  controlloDatiAccesso(){
+    if(this.AccountAzienda == "" || this.PswAzienda == "") 
+      return false
+    else 
+      return true
+  }
+  controlloDatiRegistr(){
+    if(this.controlloDatiAccesso() || this.NomeAzienda == "")
+      return false
+    else 
+      return true
+  }
+
   richiediAccesso(){
-    const utente : User = {
-      AccountAzienda : this.AccountAzienda,
-      PswAzienda : this.PswAzienda
-    }
-
-    this.auth.tentaLogin(utente).subscribe({
-      next : (risposta : User) => {
-        if(risposta != null){ 
-          this.rispostaServer.emit(true);
-          this.router.navigateByUrl("tabella/")
-        }
-        else {
-          alert("Il nome utente e/o la password sono errati!");
-          this.rispostaServer.emit(false);
-
-        }
-      },
-      error(err) {
-        alert("Error: " + err);
-
+    if(this.controlloDatiAccesso()) {
+      const utente : User = {
+        AccountAzienda : this.AccountAzienda,
+        PswAzienda : this.PswAzienda
       }
-    })
+  
+      this.auth.tentaLogin(utente).subscribe({
+        next : (risposta : User) => {
+          if(risposta != null){ 
+            this.rispostaServer.emit(true);
+          }
+          else {
+            alert("Il nome utente e/o la password sono errati!");
+            this.rispostaServer.emit(false);
+          }
+        },
+        error(err) {
+          alert("Error: " + err);
+  
+        }
+      })
+    } else {
+      alert("Devi inserire i tuoi dati nei campi")
+    }
   }
 
   richiediRegistraz() {
-    const nuovoUtente : User = {
-      AccountAzienda : this.AccountAzienda,
-      PswAzienda : this.PswAzienda,
-      NomeAzienda : this.NomeAzienda,
-      SaldoAzienda : this.SaldoAzienda
-    }
-
-    this.auth.tentaRegistraz(nuovoUtente).subscribe({
-      next : (risposta : User) => {
-        if(risposta){ 
-          alert("Registrazione riuscita, autenticati");
-
-        }
-        else {
-          alert("Utente già esistente");
-
-        }
-      },
-      error(err) {
-        alert("Error: " + err);
-
+    if(this.controlloDatiRegistr()) {
+      const nuovoUtente : User = {
+        AccountAzienda : this.AccountAzienda,
+        PswAzienda : this.PswAzienda,
+        NomeAzienda : this.NomeAzienda,
+        SaldoAzienda : this.SaldoAzienda
       }
-    })
+  
+      this.auth.tentaRegistraz(nuovoUtente).subscribe({
+        next : (risposta : User) => {
+          if(risposta){ 
+            alert("Registrazione riuscita, autenticati");
+  
+          }
+          else {
+            alert("Utente già esistente");
+  
+          }
+        },
+        error(err) {
+          alert("Error: " + err);
+  
+        }
+      })
+    } else {
+      alert("Devi inserire i tuoi dati nei campi")
+    }
   }
 }
