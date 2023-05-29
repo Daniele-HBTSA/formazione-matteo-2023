@@ -16,6 +16,9 @@ export class LoginComponent implements OnInit {
 
   errMsg: string = "Spiacente, la userid e/o la password sono errati!";
 
+  titolo: string = "Accesso & Autenticazione";
+  sottotitolo: string = "Procedi ad inserire la userid e la password";
+
   constructor(private route: Router) { }
 
   ngOnInit(): void {
@@ -24,7 +27,7 @@ export class LoginComponent implements OnInit {
   gestAuth = (): void => {
     console.log(this.userId);
 
-    if (this.userId === "Nicola" && this.password === "123") {
+    if (this.userId === "Nicola" && this.password === "123_Stella") {
       this.route.navigate(['welcome', this.userId]);
 
       this.autenticato = true;
