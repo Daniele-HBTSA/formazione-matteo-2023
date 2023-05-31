@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { HttpClient }  from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { User } from '../models/User';
@@ -29,9 +29,5 @@ export class AuthService {
     const url = environment.url + "registrati";
 
     return this.http.post<User>(url, nuovoUtente);
-  }
-
-  
-
-  
+  } 
 }

@@ -5,6 +5,7 @@ import { AuthService } from '../services/auth.service';
 import { User } from '../models/User';
 import { MovimentiService } from '../services/movimenti.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-tabella-movimenti',
@@ -21,6 +22,8 @@ export class TabellaMovimentiComponent implements OnInit, OnDestroy {
   nuovoMovimento = 0;  
   idcliccato = 0;
 
+  subs : Subscription[] = []
+
   constructor(private tabellaDB : TabellaMovimentiService, 
               private mov : MovimentiService, 
               private auth : AuthService,
@@ -35,7 +38,7 @@ export class TabellaMovimentiComponent implements OnInit, OnDestroy {
   }
 
   getTabella(idUtenteCorrente : number){
-    this.tabellaDB.getTabella(idUtenteCorrente).subscribe({
+    this.subs.push(this.tabellaDB.getTabella(idUtenteCorrente).subscribe({
       next : (tabellaDB : Movimento[]) => {
         this.elencoMovimenti = tabellaDB
       },
@@ -43,7 +46,7 @@ export class TabellaMovimentiComponent implements OnInit, OnDestroy {
         alert("Id errato");
 
       }
-    })
+    }))
   }
 
   getIdUtente() {
@@ -64,26 +67,25 @@ export class TabellaMovimentiComponent implements OnInit, OnDestroy {
       IdAzienda : this.idUtenteCorrente,
       ValoreMovimento : valMovimento
     }
-      this.mov.tentaAggiunta(nuovoMovimento).subscribe({
-        next : (risposta : number) => {
-          if(risposta) {
-            this.getTabella(this.idUtenteCorrente)
-            this.setSaldoUtente(risposta)
-            this.nuovoMovimento = 0;
+    this.subs.push(this.mov.tentaAggiunta(nuovoMovimento).subscribe({
+      next : (risposta : number) => {
+        if(risposta) {
+          this.getTabella(this.idUtenteCorrente)
+          this.setSaldoUtente(risposta)
+          this.nuovoMovimento = 0;
 
-          } else 
-            alert("Errore")
-        },
-        error(err) {
+        } else 
+          alert("Errore")
+      },
+      error(err) {
 
-        }
-      })
-
+      }
+    }))
   }
 
   eliminaMovimento(index : number, idMovimento? : number, ) {
     if(idMovimento != null) {
-      this.mov.tentaEliminaz(idMovimento).subscribe({
+      this.subs.push(this.mov.tentaEliminaz(idMovimento).subscribe({
         next : (risposta : number) => {
           if(risposta) {
             this.getTabella(this.idUtenteCorrente)
@@ -92,7 +94,7 @@ export class TabellaMovimentiComponent implements OnInit, OnDestroy {
           } else 
             alert("Errore")
         }
-      })
+      }))
     } else {
       alert("Id vuoto")
     }
@@ -106,6 +108,7 @@ export class TabellaMovimentiComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.UtenteCorrente = undefined;
     this.elencoMovimenti = [];
+    this.subs.forEach(element => element.unsubscribe());
   }
 
 }

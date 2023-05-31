@@ -1,14 +1,15 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { User } from '../models/User';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-form-dati',
   templateUrl: './form-dati.component.html',
   styleUrls: ['./form-dati.component.css']
 })
-export class FormDatiComponent implements OnInit {
+export class FormDatiComponent implements OnInit, OnDestroy{
 
   accedi = true;
   registrati = false;
@@ -20,8 +21,10 @@ export class FormDatiComponent implements OnInit {
   PswAzienda = "";
   NomeAzienda? = "";
   SaldoAzienda = 0;
+    
+  subs : Subscription[] = []; //Array di subscription a cui fare l'unsub
 
-  constructor(private auth : AuthService, private router : Router) { }
+  constructor(private auth : AuthService) { }
 
   ngOnInit(): void {
     this.accedi = true;
@@ -57,7 +60,7 @@ export class FormDatiComponent implements OnInit {
         PswAzienda : this.PswAzienda
       }
   
-      this.auth.tentaLogin(utente).subscribe({
+      this.subs.push(this.auth.tentaLogin(utente).subscribe({
         next : (risposta : User) => {
           if(risposta != null){ 
             this.rispostaServer.emit(true);
@@ -71,7 +74,7 @@ export class FormDatiComponent implements OnInit {
           alert("Error: " + err);
   
         }
-      })
+      }))
     } else {
       alert("Devi inserire i tuoi dati nei campi")
     }
@@ -86,7 +89,7 @@ export class FormDatiComponent implements OnInit {
         SaldoAzienda : this.SaldoAzienda
       }
   
-      this.auth.tentaRegistraz(nuovoUtente).subscribe({
+      this.subs.push(this.auth.tentaRegistraz(nuovoUtente).subscribe({
         next : (risposta : User) => {
           if(risposta){ 
             alert("Registrazione riuscita, autenticati");
@@ -101,9 +104,13 @@ export class FormDatiComponent implements OnInit {
           alert("Error: " + err);
   
         }
-      })
+      }))
     } else {
       alert("Devi inserire i tuoi dati nei campi")
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subs.forEach(element => element.unsubscribe());
   }
 }
