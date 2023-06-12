@@ -74,7 +74,7 @@ namespace FinanceApp.Services.InterfacesImpl
 
             List<Claim> claims = new List<Claim>();
             claims.Add(new Claim("ID", aziendaCorrente.IdAzienda.ToString()));
-            claims.Add(new Claim("Acc", aziendaCorrente.AccountAzienda));
+            claims.Add(new Claim("ACC", aziendaCorrente.AccountAzienda));
 
             SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor()
             {
@@ -84,15 +84,7 @@ namespace FinanceApp.Services.InterfacesImpl
             };
 
             JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
-            SecurityToken? token = null;
-            try
-            {
-                token = tokenHandler.CreateToken(tokenDescriptor);
-            }
-            catch (Exception ex)
-            {
-                int i = 0;
-            }
+            SecurityToken token = token = tokenHandler.CreateToken(tokenDescriptor);
 
             return tokenHandler.WriteToken(token);
         }
