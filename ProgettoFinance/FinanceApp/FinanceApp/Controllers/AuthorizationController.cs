@@ -1,6 +1,7 @@
 ﻿using FinanceApp.Models;
 using FinanceApp.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Session;
 
 namespace FinanceApp.Controllers
 {
@@ -19,12 +20,15 @@ namespace FinanceApp.Controllers
         {
             try
             {
-                return Ok(await authService.Autenticazione(azienda.AccountAzienda, azienda.PswAzienda));
+                AziendaDTO utenteLoggato = await authService.Autenticazione(azienda.AccountAzienda, azienda.PswAzienda);
+                utenteLoggato.TokenPersonale = await authService.GetToken(utenteLoggato.IdAzienda);
+                return Ok(utenteLoggato);
 
             }
             catch (Exception ex)
             {
-                return BadRequest(false);
+                //return BadRequest(false);
+                return Unauthorized(false);
             }
         }
 

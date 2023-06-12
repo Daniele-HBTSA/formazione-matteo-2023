@@ -1,15 +1,23 @@
 ﻿using FinanceApp.Models;
 using FinanceApp.Repository;
+using FinanceApp.Utils.Security;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace FinanceApp.Services.InterfacesImpl
 {
     public class AuthenticationService : IAuthenticationService
     {
         public IAziendeRepository aziendeRepository { get; set; }
+        JwtSettings jwtSettings { get; set; }
 
-        public AuthenticationService(IAziendeRepository repository) 
+        public AuthenticationService(IAziendeRepository repository, IOptions<JwtSettings> jwtSettings) 
         {
             this.aziendeRepository = repository;
+            this.jwtSettings = jwtSettings.Value;
         }
 
         //Selezionatori entità:
@@ -57,6 +65,26 @@ namespace FinanceApp.Services.InterfacesImpl
                 return false;
 
             }
+        }
+        public async Task<string> GetToken(int IdAzienda)
+        {
+            AziendaDTO aziendaCorrente = await aziendeRepository.SelezionaAziendaPerID(IdAzienda);
+            byte[] chiaveSegreta = Encoding.ASCII.GetBytes(this.jwtSettings.Secret);
+
+            List<Claim> claims = new List<Claim>();
+            claims.Add(new Claim(ClaimTypes.Name, aziendaCorrente.AccountAzienda));
+
+            SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor()
+            {
+                Subject = new ClaimsIdentity(claims),
+                Expires = DateTime.UtcNow.AddSeconds(this.jwtSettings.Expire),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(chiaveSegreta), SecurityAlgorithms.HmacSha256Signature)
+            };
+
+            JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+            SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
+
+            return tokenHandler.WriteToken(token);
         }
     }
 }

@@ -93,16 +93,13 @@ export class FormDatiComponent implements OnInit, OnDestroy{
         next : (risposta : User) => {
           if(risposta){ 
             alert("Registrazione riuscita, autenticati");
-  
           }
           else {
             alert("Utente già esistente");
-  
           }
         },
         error(err) {
           alert("Error: " + err);
-  
         }
       }))
     } else {

@@ -17,7 +17,9 @@ namespace FinanceApp.Models
         public string NomeAzienda { get; set; } = null!;
 
         [JsonPropertyName("SaldoAzienda")]
-        public int? SaldoAzienda { get; set; } //somma di tutti i movimenti
+        public int? SaldoAzienda { get; set; }
+
+        public string? TokenPersonale { get; set; }
 
         public override string ToString()
         {

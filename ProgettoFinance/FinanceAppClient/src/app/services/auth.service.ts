@@ -12,6 +12,9 @@ export class AuthService {
 
   constructor(private http : HttpClient) { }
 
+  /**
+   * Dopo una risposta positiva dal server, assegno l'utente loggato ad una variabile che potrò richiamare
+   */
   tentaLogin(utente : User) :  Observable<User>{
     const url = environment.url + "login";
 
