@@ -4,6 +4,9 @@ namespace FinanceApp.Models
 {
     public class AziendaDTO
     {
+        [JsonPropertyName("IdAzienda")]
+        public int IdAzienda { get; set; }
+
         [JsonPropertyName("AccountAzienda")]
         public string AccountAzienda { get; set; } = null!;
 
@@ -13,13 +16,15 @@ namespace FinanceApp.Models
         [JsonPropertyName("NomeAzienda")]
         public string NomeAzienda { get; set; } = null!;
 
-        [JsonPropertyName("CapitaleAzienda")]
-        public int? CapitaleAzienda { get; set; }
+        [JsonPropertyName("SaldoAzienda")]
+        public int? SaldoAzienda { get; set; }
+
+        public string? TokenPersonale { get; set; }
 
         public override string ToString()
         {
-            return string.Format("Account azienda: {0}, Psw azienda: {1}, Nome azienda: {2}, Capitale azienda: {3}.", 
-                this.AccountAzienda, this.PswAzienda, this.NomeAzienda, this.CapitaleAzienda);
+            return string.Format("Account azienda: {0}, Psw azienda: {1}, Nome azienda: {2}, Saldo azienda: {3}.", 
+                this.AccountAzienda, this.PswAzienda, this.NomeAzienda, this.SaldoAzienda);
         }
     }
 }

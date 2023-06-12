@@ -52,9 +52,9 @@ namespace FinanceApp.Context
                 entity.HasKey(e => e.ID_MOVIMENTO)
                     .HasName("PK_MOVIMENTI");
 
-                entity.HasOne(d => d.CODICE_MOVIMENTONavigation)
+                entity.HasOne(d => d.ID_AZIENDANavigation)
                     .WithMany(p => p.Movimenti)
-                    .HasForeignKey(d => d.CODICE_MOVIMENTO)
+                    .HasForeignKey(d => d.ID_AZIENDA)
                     .HasConstraintName("FK_CodMov_IdAzienda");
             });
 

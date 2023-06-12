@@ -1,12 +1,13 @@
 ﻿using FinanceApp.Models;
+using FinanceApp.Utils.Enums;
 
 namespace FinanceApp.Repository
 {
     public interface IAziendeRepository
     {
         public Task<List<AziendaDTO>> SelezionaAziende();
-        public Task<AziendaDTO> SelezionaAziendaPerNome(string nomeAzienda);
-        public Task<Boolean> AggiungiAzienda(AziendaDTO nuovaAzienda);
-        public Task<Boolean> ModificaCapitale();
+        public Task<AziendaDTO> SelezionaAziendaPerID(int idAzienda);
+        public Task<AziendaDTO> AggiungiAzienda(AziendaDTO datiAzienda);
+        public Task<int> AggiornaSaldo(MovimentoDTO movimento, Operazione tipoOperazione);
     }
 }

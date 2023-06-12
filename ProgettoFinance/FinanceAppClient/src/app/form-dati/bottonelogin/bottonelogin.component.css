@@ -1,0 +1,22 @@
+button {
+    font-size: 20px;
+    margin: 30px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px cadetblue;
+    padding: 6px;
+    width: 45%;
+}
+
+footer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 85%;
+    margin-top: 95px;
+}
+
+footer a {
+    text-decoration: none;
+    color: unset;
+}
