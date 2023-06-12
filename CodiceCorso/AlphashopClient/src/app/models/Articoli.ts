@@ -13,7 +13,6 @@ export interface IArticoli {
   idFamAss: number
   idIva: number
   ean: IBarcode[]
-  active : boolean
 }
 
 export interface IIva {

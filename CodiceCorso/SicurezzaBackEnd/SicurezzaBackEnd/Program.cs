@@ -2,12 +2,7 @@ using Microsoft.AspNetCore.Authentication;
 using SicurezzaBackEnd.Security;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-builder.Services.AddRazorPages();
-builder.Services.AddAuthentication("BasicAuthentication")
-    .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
-
+builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("TokenSettings"));
 
 var app = builder.Build();
 
@@ -26,6 +21,5 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthentication();
-app.UseAuthorization();
 
 app.Run();
