@@ -19,8 +19,6 @@ namespace FinanceApp.Models
         [JsonPropertyName("SaldoAzienda")]
         public int? SaldoAzienda { get; set; }
 
-        public string? TokenPersonale { get; set; }
-
         public override string ToString()
         {
             return string.Format("Account azienda: {0}, Psw azienda: {1}, Nome azienda: {2}, Saldo azienda: {3}.", 

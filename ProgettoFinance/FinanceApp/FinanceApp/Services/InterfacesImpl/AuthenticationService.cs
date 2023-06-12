@@ -70,19 +70,29 @@ namespace FinanceApp.Services.InterfacesImpl
         {
             AziendaDTO aziendaCorrente = await aziendeRepository.SelezionaAziendaPerID(IdAzienda);
             byte[] chiaveSegreta = Encoding.ASCII.GetBytes(this.jwtSettings.Secret);
+            await Console.Out.WriteLineAsync(this.jwtSettings.Secret);
 
             List<Claim> claims = new List<Claim>();
-            claims.Add(new Claim(ClaimTypes.Name, aziendaCorrente.AccountAzienda));
+            claims.Add(new Claim("ID", aziendaCorrente.IdAzienda.ToString()));
+            claims.Add(new Claim("Acc", aziendaCorrente.AccountAzienda));
 
             SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor()
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.UtcNow.AddSeconds(this.jwtSettings.Expire),
+                Expires = DateTime.UtcNow.AddMinutes(this.jwtSettings.Expire),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(chiaveSegreta), SecurityAlgorithms.HmacSha256Signature)
             };
 
             JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
-            SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
+            SecurityToken? token = null;
+            try
+            {
+                token = tokenHandler.CreateToken(tokenDescriptor);
+            }
+            catch (Exception ex)
+            {
+                int i = 0;
+            }
 
             return tokenHandler.WriteToken(token);
         }

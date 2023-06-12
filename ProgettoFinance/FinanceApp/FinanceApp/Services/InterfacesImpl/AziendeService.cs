@@ -20,6 +20,11 @@ namespace FinanceApp.Services.InterfacesImpl
             return await aziendeRepository.SelezionaAziende();
         }
 
+        public async Task<AziendaDTO> DatiAzienda(int idAzienda)
+        {
+            return await aziendeRepository.SelezionaAziendaPerID(idAzienda);
+        }
+
         public async Task<AziendaDTO> NuovaAzienda(AziendaDTO datiAzienda)
         {
             return await aziendeRepository.AggiungiAzienda(datiAzienda);
