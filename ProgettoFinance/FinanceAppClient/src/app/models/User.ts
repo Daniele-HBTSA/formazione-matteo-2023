@@ -4,4 +4,5 @@ export interface User {
     PswAzienda : string
     NomeAzienda? : string
     SaldoAzienda? : number
+    tokenPersonale? : string
 }

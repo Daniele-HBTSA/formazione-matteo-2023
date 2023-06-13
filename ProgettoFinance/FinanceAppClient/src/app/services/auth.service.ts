@@ -20,10 +20,18 @@ export class AuthService {
 
     return this.http.post<User>(url, utente).pipe(
       tap(element => {
-        if(element != null) {
+        if(element.tokenPersonale == undefined) {
+          throw new Error("Token non ricevuto");
+          
+        } else if (element != null) {
           this.utenteLoggato = element
-        }
-        else ("Utente non trovato")
+          localStorage.setItem("Utente", element.AccountAzienda)
+          localStorage.setItem("JWToken", "Bearer " + element.tokenPersonale)
+
+        } else {
+          throw new Error("Utente non trovato")
+
+        } 
       })
     );
   }

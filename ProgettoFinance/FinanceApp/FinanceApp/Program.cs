@@ -15,12 +15,14 @@ var logInConnString = builder.Configuration.GetConnectionString("DBLogin");
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddDbContext<FinanceAppContext>(x => x.UseSqlServer(logInConnString, sqlServerOptionsAction: sqlOptions => { sqlOptions.EnableRetryOnFailure(); }));
+
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IAziendeRepository, AziendeRepository>();
 builder.Services.AddScoped<IAziendeService, AziendeService>();
 builder.Services.AddScoped<IMovimentiRepository, MovimentiRepository>();
 builder.Services.AddScoped<IMovimentiService, MovimentiService>();
-builder.Services.AddDbContext<FinanceAppContext>(x => x.UseSqlServer(logInConnString, sqlServerOptionsAction: sqlOptions => { sqlOptions.EnableRetryOnFailure(); }));
+
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("TokenSettings"));
 
 var app = builder.Build();

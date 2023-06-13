@@ -72,7 +72,8 @@ namespace FinanceApp.Services.InterfacesImpl
             byte[] chiaveSegreta = Encoding.ASCII.GetBytes(this.jwtSettings.Secret);
 
             List<Claim> claims = new List<Claim>();
-            claims.Add(new Claim(ClaimTypes.Name, aziendaCorrente.AccountAzienda));
+            claims.Add(new Claim("Id", aziendaCorrente.IdAzienda.ToString()));
+            claims.Add(new Claim("Account", aziendaCorrente.AccountAzienda));
 
             SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor()
             {

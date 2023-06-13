@@ -27,8 +27,7 @@ namespace FinanceApp.Controllers
             }
             catch (Exception ex)
             {
-                //return BadRequest(false);
-                return Unauthorized(false);
+                return Unauthorized("Non autorizzato");
             }
         }
 
