@@ -1,5 +1,5 @@
 ﻿using FinanceApp.Models;
-using FinanceApp.Services;
+using FinanceApp.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Session;
 

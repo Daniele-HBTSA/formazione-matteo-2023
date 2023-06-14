@@ -1,7 +1,7 @@
 ﻿using FinanceApp.Models;
 using FinanceApp.Utils.Enums;
 
-namespace FinanceApp.Services
+namespace FinanceApp.Services.Interfaces
 {
     public interface IAziendeService
     {

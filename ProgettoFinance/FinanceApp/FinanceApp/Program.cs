@@ -1,7 +1,7 @@
 using FinanceApp.Context;
-using FinanceApp.Repository;
+using FinanceApp.Repository.Interfaces;
 using FinanceApp.Repository.InterfacesImpl;
-using FinanceApp.Services;
+using FinanceApp.Services.Interfaces;
 using FinanceApp.Services.InterfacesImpl;
 using FinanceApp.Utils.Security;
 using Microsoft.AspNetCore.Authentication.JwtBearer;

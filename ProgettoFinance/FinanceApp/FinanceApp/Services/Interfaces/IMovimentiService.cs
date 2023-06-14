@@ -1,6 +1,6 @@
 ﻿using FinanceApp.Models;
 
-namespace FinanceApp.Services
+namespace FinanceApp.Services.Interfaces
 {
     public interface IMovimentiService
     {
@@ -8,6 +8,6 @@ namespace FinanceApp.Services
         public Task<MovimentoDTO> SelezionaMovimento(int idMovimento);
         public Task<MovimentoDTO> NuovoMovimento(MovimentoDTO nuovoMovimento);
         public Task<MovimentoDTO> RimuoviMovimento(int IdRimuvomento);
-        
+
     }
 }

@@ -1,5 +1,6 @@
 ﻿using FinanceApp.Context;
 using FinanceApp.Models;
+using FinanceApp.Repository.Interfaces;
 using FinanceApp.Utils.Enums;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;

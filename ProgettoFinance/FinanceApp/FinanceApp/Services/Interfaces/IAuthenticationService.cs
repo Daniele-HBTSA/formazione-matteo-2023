@@ -1,7 +1,7 @@
 ﻿using FinanceApp.Context;
 using FinanceApp.Models;
 
-namespace FinanceApp.Services
+namespace FinanceApp.Services.Interfaces
 {
     public interface IAuthenticationService
     {
