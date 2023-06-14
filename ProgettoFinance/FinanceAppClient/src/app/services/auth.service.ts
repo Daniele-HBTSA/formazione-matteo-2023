@@ -38,6 +38,12 @@ export class AuthService {
     );
   }
 
+  liberaStorage(){
+    localStorage.removeItem("Utente")
+    localStorage.removeItem("AccessToken")
+    localStorage.removeItem("RefreshToken")
+  }
+
   tentaRegistraz(nuovoUtente : User) :  Observable<User> {
     const url = environment.url + "registrati";
 

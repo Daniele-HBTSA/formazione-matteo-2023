@@ -10,6 +10,7 @@ import { BottoneregistratiComponent } from './form-dati/bottoneregistrati/botton
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { TabellaMovimentiComponent } from './tabella-movimenti/tabella-movimenti.component';
 import { AuthInterceptorsService } from './services/auth-interceptors.service';
+import { ErrorInterceptor } from './services/error-interceptor.interceptor';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,7 @@ import { AuthInterceptorsService } from './services/auth-interceptors.service';
     FormDatiComponent,
     BottoneloginComponent,
     BottoneregistratiComponent,
-    TabellaMovimentiComponent
+    TabellaMovimentiComponent,
   ],
   imports: [
     BrowserModule,
@@ -26,7 +27,8 @@ import { AuthInterceptorsService } from './services/auth-interceptors.service';
     HttpClientModule
   ],
   providers: [
-    {provide : HTTP_INTERCEPTORS, useClass : AuthInterceptorsService, multi : true}
+    { provide : HTTP_INTERCEPTORS, useClass : AuthInterceptorsService, multi : true },
+    { provide : HTTP_INTERCEPTORS, useClass : ErrorInterceptor, multi : true },
   ],
   bootstrap: [AppComponent]
 })

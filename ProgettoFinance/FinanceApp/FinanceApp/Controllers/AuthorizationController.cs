@@ -7,7 +7,6 @@ namespace FinanceApp.Controllers
 {
     public class AuthorizationController : ControllerBase
     {
-
         public IAuthenticationService authService { get; set; }
 
         public AuthorizationController(IAuthenticationService authService)

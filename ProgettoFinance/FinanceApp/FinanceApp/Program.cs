@@ -69,6 +69,8 @@ else
 
 app.UseHttpsRedirection();
 
+app.UseMiddleware<JwtMiddleware>();
+
 app.UseStaticFiles();
 
 app.MapControllers();

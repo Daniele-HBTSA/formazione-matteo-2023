@@ -1,5 +1,6 @@
 ﻿using FinanceApp.Models;
 using FinanceApp.Repository.Interfaces;
+using FinanceApp.Services.Interfaces;
 using FinanceApp.Utils.Security;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;

@@ -63,27 +63,36 @@ export class TabellaMovimentiComponent implements OnInit, OnDestroy {
   }
 
   aggiungiMovimento(valMovimento : number) {
+    if(localStorage.getItem("AccessToken") == null){
+      alert("Effettuare un nuovo login")
+      this.logout();
+    }
+
     const nuovoMovimento : Movimento = {
       IdAzienda : this.idUtenteCorrente,
       ValoreMovimento : valMovimento
     }
+
     this.subs.push(this.mov.tentaAggiunta(nuovoMovimento).subscribe({
       next : (risposta : number) => {
         if(risposta) {
           this.getTabella(this.idUtenteCorrente)
           this.setSaldoUtente(risposta)
           this.nuovoMovimento = 0;
-
-        } else 
-          alert("Errore")
+        } 
       },
       error(err) {
-
+        alert("Errore: " + err)
       }
     }))
-  }
+  } 
 
   eliminaMovimento(index : number, idMovimento? : number, ) {
+    if(localStorage.getItem("AccessToken") == null){
+      alert("Effettuare un nuovo login")
+      this.logout();
+    }
+
     if(idMovimento != null) {
       this.subs.push(this.mov.tentaEliminaz(idMovimento).subscribe({
         next : (risposta : number) => {
@@ -91,21 +100,18 @@ export class TabellaMovimentiComponent implements OnInit, OnDestroy {
             this.getTabella(this.idUtenteCorrente)
             this.setSaldoUtente(risposta)
 
-          } else 
-            alert("Errore")
+          }
         }
       }))
     } else {
       alert("Id vuoto")
     }
-  }
+  } 
 
   logout(){
+    this.auth.liberaStorage();
     this.visualizza.emit(false);
     this.router.navigateByUrl("financeapp")
-    localStorage.removeItem("Utente")
-    localStorage.removeItem("AccessToken")
-    localStorage.removeItem("RefreshToken")
   }
 
   ngOnDestroy(): void {
@@ -113,5 +119,4 @@ export class TabellaMovimentiComponent implements OnInit, OnDestroy {
     this.elencoMovimenti = [];
     this.subs.forEach(element => element.unsubscribe());
   }
-
 }
