@@ -7,6 +7,6 @@ namespace FinanceApp.Services
     {
         public Task<AziendaDTO> Autenticazione(string username, string password);
         public Task<bool> Registrazione(AziendaDTO nuovaAzienda);
-        public Task<string> GetToken(int IdAzienda);
+        public Task<Dictionary<string, string>> GetToken(int IdAzienda);
     }
 }

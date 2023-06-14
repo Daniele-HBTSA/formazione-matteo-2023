@@ -15,41 +15,19 @@ namespace FinanceApp.Controllers
             this.authService = authService; 
         }
 
-        //[HttpPost("login")]
-        //public async Task<ActionResult<AziendaDTO>> TentaLogin([FromBody]AziendaDTO azienda)
-        //{
-        //    try
-        //    {
-        //        AziendaDTO utenteLoggato = await authService.Autenticazione(azienda.AccountAzienda, azienda.PswAzienda);
-        //        utenteLoggato.TokenPersonale = await authService.GetToken(utenteLoggato.IdAzienda);
-        //        return Ok(utenteLoggato);
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        //return BadRequest(false);
-        //        return Unauthorized(false);
-        //    }
-        //}
-
         [HttpPost("login")]
-        public async Task<ActionResult<JwtDTO>> TentaLogin([FromBody] AziendaDTO azienda)
+        public async Task<ActionResult<AziendaDTO>> TentaLogin([FromBody]AziendaDTO azienda)
         {
             try
             {
                 AziendaDTO utenteLoggato = await authService.Autenticazione(azienda.AccountAzienda, azienda.PswAzienda);
-                if (utenteLoggato == null)
-                {
-                    throw new Exception("Utente non trovato");
+                utenteLoggato.TokenPersonale = await authService.GetToken(utenteLoggato.IdAzienda);
+                return Ok(utenteLoggato);
 
-                } else
-                {
-                   return Ok(await this.authService.GetToken(utenteLoggato.IdAzienda));
-                }
             }
             catch (Exception ex)
             {
-                return Unauthorized(false);
+                return Unauthorized("Non autorizzato");
             }
         }
 

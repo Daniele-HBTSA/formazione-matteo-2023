@@ -4,4 +4,10 @@ export interface User {
     PswAzienda : string
     NomeAzienda? : string
     SaldoAzienda? : number
+    TokenPersonale? : CoppiaToken
+}
+
+interface CoppiaToken {
+    AccessToken : string,
+    RefreshToken : string
 }

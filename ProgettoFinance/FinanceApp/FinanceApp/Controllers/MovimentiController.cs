@@ -17,24 +17,10 @@ namespace FinanceApp.Controllers
         }
 
         //Da togliere se non serve più
-        //[HttpGet("mostraelenco")]
-        //public async Task<List<AziendaDTO>> MostraElencoAziende()
-        //{
-        //    return await aziendeService.ElencoAziende();
-        //}
-
-        //metodo che restituisce l'oggetto azienda corrente
-        [HttpGet("azienda/{idAzienda}")]
-        public async Task<ActionResult<AziendaDTO>> AziendaCorrente([FromQuery] int idAzienda)
+        [HttpGet("mostraelenco")]
+        public async Task<List<AziendaDTO>> MostraElencoAziende()
         {
-            try
-            {
-                return await this.aziendeService.DatiAzienda(idAzienda);
-            }
-            catch (Exception ex)
-            {
-                return Unauthorized(false);
-            }
+            return await aziendeService.ElencoAziende();
         }
 
         //Mostra tutti i movimenti dell'azienda

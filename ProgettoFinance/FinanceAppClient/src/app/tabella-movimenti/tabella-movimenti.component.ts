@@ -103,6 +103,9 @@ export class TabellaMovimentiComponent implements OnInit, OnDestroy {
   logout(){
     this.visualizza.emit(false);
     this.router.navigateByUrl("financeapp")
+    localStorage.removeItem("Utente")
+    localStorage.removeItem("AccessToken")
+    localStorage.removeItem("RefreshToken")
   }
 
   ngOnDestroy(): void {
