@@ -50,6 +50,7 @@ export class FormDatiComponent implements OnInit, OnDestroy{
     else 
       return true
   }
+
   controlloDatiRegistr(){
     if(this.controlloDatiAccesso() || this.NomeAzienda == "")
       return false
@@ -58,8 +59,6 @@ export class FormDatiComponent implements OnInit, OnDestroy{
   }
 
   richiediAccesso(){
-    this.chiamataInCorso.emit(true);
-
     if(this.controlloDatiAccesso()) {
       const utente : User = {
         AccountAzienda : this.AccountAzienda,
@@ -73,16 +72,11 @@ export class FormDatiComponent implements OnInit, OnDestroy{
             this.chiamataInCorso.emit(false);
 
           }
-          else {
-            alert("Il nome utente e/o la password sono errati!");
-            this.rispostaServer.emit(false);
-            this.chiamataInCorso.emit(false);
-
-          }
         },
-        error(err) {
-          alert("Error: " + err);
-  
+        error: (err) => {
+          alert("Il nome utente e/o la password sono errati!");
+          this.rispostaServer.emit(false);
+          this.chiamataInCorso.emit(false);
         }
       }))
     } else {
@@ -91,8 +85,6 @@ export class FormDatiComponent implements OnInit, OnDestroy{
   }
 
   richiediRegistraz() {
-    this.chiamataInCorso.emit(true);
-
     if(this.controlloDatiRegistr()) {
       const nuovoUtente : User = {
         AccountAzienda : this.AccountAzienda,
@@ -108,14 +100,10 @@ export class FormDatiComponent implements OnInit, OnDestroy{
             this.chiamataInCorso.emit(false);
 
           }
-          else {
-            alert("Utente già esistente");
-            this.chiamataInCorso.emit(false);
-
-          }
         },
-        error(err) {
-          alert("Error: " + err);
+        error : (err) => {
+          alert("Utente già esistente");
+          this.chiamataInCorso.emit(false);
         }
       }))
     } else {
