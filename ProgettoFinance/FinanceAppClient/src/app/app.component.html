@@ -1,10 +1,25 @@
 <div class="wrapperEsterno">
     <div class="latoSx">
+
         <h1>FinanceApp</h1>
-        <img *ngIf="rispostaServer == false" src="https://www.notizienazionali.it/archivi/immagini/2021/S/stretta.jpg" alt=""> <!--ngIf per far sparire l'immagine-->
-        <app-tabella-movimenti *ngIf="rispostaServer == true" (visualizza)="rispostaServer = $event"></app-tabella-movimenti>
+
+        <mat-spinner *ngIf="mostraSpinner == true"></mat-spinner>
+
+        <img src="https://www.notizienazionali.it/archivi/immagini/2021/S/stretta.jpg" alt=""
+        *ngIf="rispostaServer == false">
+
+        <app-tabella-movimenti 
+        *ngIf="rispostaServer == true" 
+        (visualizza)="rispostaServer = $event" 
+        ></app-tabella-movimenti>
+
     </div>
     <div class="latoDx" *ngIf="rispostaServer == false">
-        <app-form-dati (rispostaServer)="rispostaServer = $event"></app-form-dati> 
+        
+        <app-form-dati 
+        (chiamataInCorso)="mostraSpinner = $event" 
+        (rispostaServer)="rispostaServer = $event"
+        ></app-form-dati> 
+        
     </div>
 </div>

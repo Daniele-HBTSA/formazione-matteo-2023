@@ -1,16 +1,19 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-
 import { AppRoutingModule } from './app-routing.module';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+
+
 import { AppComponent } from './app.component';
 import { FormDatiComponent } from './form-dati/form-dati.component';
 import { BottoneloginComponent } from './form-dati/bottonelogin/bottonelogin.component';
 import { BottoneregistratiComponent } from './form-dati/bottoneregistrati/bottoneregistrati.component';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { TabellaMovimentiComponent } from './tabella-movimenti/tabella-movimenti.component';
 import { AuthInterceptorsService } from './services/auth-interceptors.service';
 import { ErrorInterceptor } from './services/error-interceptor.interceptor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -24,7 +27,9 @@ import { ErrorInterceptor } from './services/error-interceptor.interceptor';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     { provide : HTTP_INTERCEPTORS, useClass : AuthInterceptorsService, multi : true },
