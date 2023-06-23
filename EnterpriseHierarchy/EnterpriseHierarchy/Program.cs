@@ -1,4 +1,6 @@
 using EnterpriseHierarchy.Context;
+using EnterpriseHierarchy.Services.Implementations;
+using EnterpriseHierarchy.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +14,8 @@ var logInConnString = builder.Configuration.GetConnectionString("DbLogin");
 builder.Services.AddDbContext<EnterpriseHierarchyContext>(x => x.UseSqlServer(logInConnString, sqlServerOptionsAction: sqlOptions => { sqlOptions.EnableRetryOnFailure(); }));
 
 //Aggiungere gli scope delle interfacce
+builder.Services.AddScoped<ITreeService, TreeService>();
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
