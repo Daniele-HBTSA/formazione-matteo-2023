@@ -1,5 +1,4 @@
-﻿
-namespace ProvaUnitTests
+﻿namespace ProvaUnitTests
 {
     public class Operazioni
     {
@@ -9,7 +8,8 @@ namespace ProvaUnitTests
             if (n > 0)
             {
                 return calcolaFattoriale(n - 1) * n;
-            } else
+            }
+            else
             {
                 return 1;
             }
