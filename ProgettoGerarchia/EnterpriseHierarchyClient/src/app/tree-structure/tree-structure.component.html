@@ -1,0 +1,30 @@
+<h1 style="font-size: 70px; font-weight: bold; margin: 50px;">Tree Test</h1>
+
+<mat-tree [dataSource]="nestedDataSource" [treeControl]="nestedTreeControl">
+
+    <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+        <div class="met-tree-single-node">
+            <button mat-icon-button disabled></button>
+            Code: {{node.Code}} - Balance: {{node.Balance}}
+        </div>
+    </mat-tree-node>
+
+    <mat-tree-node *matTreeNodeDef="let node; when: hasChildren" matTreeNodePadding>
+        <div class="met-tree-node">
+            <button mat-icon-button [attr.aria-label]="'Toggle ' + node.item" matTreeNodeToggle>
+                <mat-icon class="mat-icon-rtl-mirror">
+                    {{nestedTreeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                </mat-icon>
+            </button>
+            Code: {{node.Code}} - Balance: {{node.Balance}}
+        </div>
+
+        <div class="nested-node">
+            <ng-container matTreeNodeOutlet></ng-container>
+        </div>
+
+        <mat-progress-bar *ngIf="node.isLoading" mode="indeterminate"
+            class="example-tree-progress-bar"></mat-progress-bar>
+    </mat-tree-node>
+
+</mat-tree>

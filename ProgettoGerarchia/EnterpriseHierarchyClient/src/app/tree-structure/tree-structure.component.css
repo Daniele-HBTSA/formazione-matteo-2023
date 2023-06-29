@@ -1,0 +1,26 @@
+.mat-tree {
+    display: flex;
+    border-style: groove;
+    border-radius: 25px;
+    flex-direction: column;
+    align-items: stretch;
+    align-content: center;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.mat-tree * {
+    padding: 5px;
+    font-size: 30px;
+    align-items: baseline;
+    justify-self: left;
+}
+
+.mat-tree *:hover {
+    cursor: pointer;
+}
+
+.mat-tree-node {
+    border-style: inherit;
+    border-radius: inherit;
+}
