@@ -1,26 +1,36 @@
 .mat-tree {
-    display: flex;
     border-style: groove;
-    border-radius: 25px;
-    flex-direction: column;
-    align-items: stretch;
-    align-content: center;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.mat-tree * {
-    padding: 5px;
-    font-size: 30px;
-    align-items: baseline;
-    justify-self: left;
-}
-
-.mat-tree *:hover {
-    cursor: pointer;
+    border-radius: 10px;
 }
 
 .mat-tree-node {
-    border-style: inherit;
-    border-radius: inherit;
+    border-style: groove;
+    border-radius: 10px;
+}
+
+.example-tree-invisible {
+    display: none;
+}
+
+.enterprises-tree ul,
+.enterprises-tree li {
+    margin-top: 0;
+    margin-bottom: 0;
+    list-style-type: none;
+}
+
+/*
+ * This padding sets alignment of the nested nodes.
+ */
+.enterprises-tree .mat-nested-tree-node div[role=group] {
+    padding-left: 40px;
+}
+
+/*
+ * Padding for leaf nodes.
+ * Leaf nodes need to have padding so as to align with other non-leaf nodes
+ * under the same parent.
+ */
+.enterprises-tree div[role=group]>.mat-tree-node {
+    padding-left: 40px;
 }
