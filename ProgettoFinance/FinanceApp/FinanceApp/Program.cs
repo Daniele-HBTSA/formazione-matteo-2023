@@ -11,7 +11,7 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Services.AddControllersWithViews();
 
 var logInConnString = builder.Configuration.GetConnectionString("DBLogin");
 
@@ -54,6 +54,7 @@ builder.Services.AddAuthentication(element =>
 
 var app = builder.Build();
 
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -64,7 +65,7 @@ if (app.Environment.IsDevelopment())
 }
 else
 {
-
+    app.UseHsts();
 }
 
 app.UseHttpsRedirection();
@@ -74,6 +75,8 @@ app.UseMiddleware<JwtMiddleware>();
 app.UseStaticFiles();
 
 app.MapControllers();
+
+app.MapFallbackToFile("index.html");
 
 app.UseRouting();
 

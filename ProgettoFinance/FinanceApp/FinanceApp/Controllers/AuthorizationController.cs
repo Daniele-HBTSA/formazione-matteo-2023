@@ -22,7 +22,6 @@ namespace FinanceApp.Controllers
                 AziendaDTO utenteLoggato = await authService.Autenticazione(azienda.AccountAzienda, azienda.PswAzienda);
                 utenteLoggato.TokenPersonale = await authService.GetToken(utenteLoggato.IdAzienda);
                 return Ok(utenteLoggato);
-
             }
             catch (Exception ex)
             {
