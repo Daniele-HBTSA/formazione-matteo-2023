@@ -1,25 +1,24 @@
-
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Linq;
 using Models;
 using Security;
 using Microsoft.EntityFrameworkCore;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
-using Microsoft.Extensions.Options;
+using SicurezzaBackEnd.Security;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
-using System;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Services
 {
     public class UserService : IUserService
     {
         private readonly AlphaShopDbContext alphaShopDbContext;
-        public UserService(AlphaShopDbContext alphaShopDbContext)
+        private JwtSettings jwtSettings;
+
+        public UserService(AlphaShopDbContext alphaShopDbContext, JwtSettings jwtSettings)
         {
             this.alphaShopDbContext = alphaShopDbContext;
+            this.jwtSettings = jwtSettings;
         }
 
         public async Task<Utenti> GetUser(string UserId)
@@ -93,6 +92,36 @@ namespace Services
         {
             var saved = await this.alphaShopDbContext.SaveChangesAsync();
             return saved >= 0 ? true : false; 
+        }
+
+        public async Task<string> GetToken(string userId)
+        {
+            //Importiamo l'entità dell'utente
+            Utenti utente = await this.GetUser(userId);
+
+            //Importiamo la chiave segreta
+            byte[] key = Encoding.ASCII.GetBytes(this.jwtSettings.Secret);
+
+            //Payload
+            List<Claim> claims = new List<Claim>();
+            claims.Add(new Claim(ClaimTypes.Name, utente.UserId)); //settiamo l'elemento "name" del token al nome utente
+
+            //Identity
+            SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor() 
+            { 
+                Subject = new ClaimsIdentity(claims),
+
+                //Scandenza del token, partendo dall'ora di creazione
+                Expires = DateTime.UtcNow.AddSeconds(this.jwtSettings.Expiration),
+
+                //Codifica del token al quale passiamo la chiave segreta e il tipo di codifica
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+
+            JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+            SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
+
+            return tokenHandler.WriteToken(token);
         }
     }
 }

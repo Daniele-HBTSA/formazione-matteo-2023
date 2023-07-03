@@ -14,7 +14,6 @@ namespace Services
           Task<bool> UpdUtente(Utenti utente);
           Task<bool> DelUtente(Utenti utente);
           Task<bool> Authenticate(string username, string password);
-
-
+          Task<string> GetToken(string userId);
      }
 }

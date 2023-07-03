@@ -1,7 +1,6 @@
-﻿using Moq;
-using Xunit;
+﻿using Xunit;
 
-namespace ProvaUnitTests
+namespace ProvaUnitTests.UnitTests
 {
     public class TestOperazioni
     {

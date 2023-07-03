@@ -10,6 +10,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using ArticoliWebService.Dtos;
 using GestUserWebApi.Dtos;
+using SicurezzaBackEnd.Dtos;
 
 namespace GestUser.Controllers
 {
@@ -26,26 +27,20 @@ namespace GestUser.Controllers
             this.userRepository = userRepository;
             this.mapper = mapper;
         }
-
+        
         [HttpPost("auth")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(InfoMsg))]
-        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrMsg))]
-        public async Task<ActionResult<InfoMsg>> AuthUser([FromBody] AuthDto utente)
+        public async Task<ActionResult<JwtDTO>> authenticate([FromBody] UtentiDto user)
         {
-            if (utente == null)
+            if(!await userRepository.Authenticate(user.UserId, user.Password))
             {
-                return BadRequest(new ErrMsg("E' necessario inserire i dati dell'utente", 
-                    this.HttpContext.Response.StatusCode));
+                return BadRequest();
+            } else
+            {
+                JwtDTO tokenUtente = new JwtDTO(await userRepository.GetToken(user.UserId));
+                return Ok(tokenUtente);
             }
-
-            bool isAuth = await userRepository.Authenticate(utente.UserId, utente.Password);
-
-            if (isAuth)
-                return Ok(new InfoMsg(DateTime.Today, $"Autenticazione Utente {utente.UserId} eseguita con successo!"));
-            else
-                return  BadRequest(new ErrMsg($"Autenticazione Utente {utente.UserId} fallita!", 
-                    this.HttpContext.Response.StatusCode));
         }
+
         [HttpGet("all")]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ErrMsg))]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResult<UtentiDto>))]

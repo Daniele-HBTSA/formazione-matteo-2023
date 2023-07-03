@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterStateSnapshot } from '@angular/router';
 
 @Component({
   selector: 'app-welcome',
@@ -19,6 +19,7 @@ export class WelcomeComponent implements OnInit {
   ngOnInit(): void {
 
     this.utente = this.route.snapshot.params['userid'];
+
   }
 
 }

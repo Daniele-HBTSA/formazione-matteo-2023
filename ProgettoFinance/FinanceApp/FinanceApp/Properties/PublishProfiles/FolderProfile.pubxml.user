@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <_PublishTargetUrl>C:\Users\ecelo\Desktop\GitHub\formazione-matteo-2023\ProgettoFinance\FinanceApp\FinanceApp\publish\</_PublishTargetUrl>
+    <History>True|2023-06-29T08:37:20.5977558Z;True|2023-06-29T10:33:30.4544178+02:00;True|2023-06-29T10:23:10.2391635+02:00;True|2023-06-29T10:13:44.9711688+02:00;True|2023-06-29T09:55:12.7210128+02:00;True|2023-06-29T09:53:10.3261752+02:00;True|2023-06-29T09:51:31.0963565+02:00;True|2023-06-29T09:49:28.9847793+02:00;True|2023-06-29T09:39:53.1657577+02:00;True|2023-06-28T17:25:11.4537001+02:00;True|2023-06-28T17:20:17.5847105+02:00;True|2023-06-28T10:45:39.7157512+02:00;True|2023-06-28T10:14:34.5070612+02:00;True|2023-06-28T10:08:34.2406361+02:00;True|2023-06-28T10:06:42.1812323+02:00;True|2023-06-27T17:16:58.6068968+02:00;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+</Project>
