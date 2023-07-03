@@ -4,12 +4,24 @@
 }
 
 .mat-tree-node {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    word-wrap: break-word;
     border-style: groove;
     border-radius: 10px;
 }
 
+.mat-icon{
+    cursor: pointer;
+}
+
 .example-tree-invisible {
     display: none;
+}
+
+.is-selected {
+    background-color: lightgray;
 }
 
 .enterprises-tree ul,

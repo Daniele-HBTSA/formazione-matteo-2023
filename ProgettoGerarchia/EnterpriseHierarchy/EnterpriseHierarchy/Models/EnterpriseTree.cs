@@ -4,6 +4,7 @@ namespace EnterpriseHierarchy.Models
 {
     public class EnterpriseTree
     {
+        [JsonPropertyName("Id")]
         public int Id { get; set; }
 
         [JsonPropertyName("Code")]

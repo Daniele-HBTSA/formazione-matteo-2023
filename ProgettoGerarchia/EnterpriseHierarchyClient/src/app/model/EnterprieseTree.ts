@@ -1,6 +1,7 @@
 export interface EnterprieseTree { 
+    Id?: number,
     Code : string,
     Balance : number,
-    Selected : boolean,
+    Selected: boolean,
     Children : EnterprieseTree[]
 }

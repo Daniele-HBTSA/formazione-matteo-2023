@@ -55,7 +55,7 @@ namespace TestsHierarchy
                 }
             };
 
-            List<EnterpriseTree> actual = new TreeService().CreateTree(treeParam);
+            List<EnterpriseTree> actual = new EnterpriseTreeService().CreateTree(treeParam);
 
             Assert.Equivalent(expRes, actual, strict: true);
         }
@@ -113,7 +113,7 @@ namespace TestsHierarchy
             };
             int expRes = 2700;
 
-            int actualRes = new TreeService().SumEveryEnterpriseTreeBalances(treeParam);
+            int actualRes = new EnterpriseTreeService().SumEveryEnterpriseTreeBalances(treeParam);
 
             Assert.Equal(expRes, actualRes);
         }
@@ -224,7 +224,7 @@ namespace TestsHierarchy
 
             int expRes = 2100;
 
-            int actualRes = new TreeService().SumSpecificEnterpriseTreeBalances(treeParam, fatherID);
+            int actualRes = new EnterpriseTreeService().SumSpecificEnterpriseTreeBalances(treeParam, fatherID);
 
             Assert.Equal(expRes, actualRes);
         }
@@ -431,7 +431,7 @@ namespace TestsHierarchy
                 }
             };
 
-            List<EnterpriseTree> actualRes = new TreeService().SelectSpecificEnterprise(treeParam, selectedID);
+            List<EnterpriseTree> actualRes = new EnterpriseTreeService().SelectSpecificEnterprise(treeParam, selectedID);
 
             expRes.Should().BeEquivalentTo(actualRes);
         }
@@ -643,83 +643,9 @@ namespace TestsHierarchy
                 }
             };
 
-            List<EnterpriseTree> actualRes = new TreeService().SelectSpecificEnterpriseTree(treeParam, fatherID);
+            List<EnterpriseTree> actualRes = new EnterpriseTreeService().SelectSpecificEnterpriseTree(treeParam, fatherID);
 
             expRes.Should().BeEquivalentTo(actualRes);
-        }
-
-        [Fact]
-        public void boh()
-        {
-            EnterpriseTree treeParam = new EnterpriseTree()
-            {
-                Id = 10,
-                Balance = 500,
-                Children = new List<EnterpriseTree>
-                {
-                    new EnterpriseTree()
-                    {
-                        Id = 11,
-                        Balance = 200,
-                        Children = new List<EnterpriseTree>
-                        {
-                            new EnterpriseTree()
-                            {
-                                Id= 12,
-                                Balance = 300,
-                                Children = new List<EnterpriseTree>
-                                {
-                                    new EnterpriseTree()
-                                    {
-                                        Id= 13,
-                                        Balance = 100,
-                                        Children = new List<EnterpriseTree>()
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            };
-
-            EnterpriseTree expRes = new EnterpriseTree()
-            {
-                Id = 10,
-                Balance = 500,
-                Selected = true,
-                Children = new List<EnterpriseTree>
-                {
-                    new EnterpriseTree()
-                    {
-                        Id = 11,
-                        Balance = 200,
-                        Selected = true,
-                        Children = new List<EnterpriseTree>
-                        {
-                            new EnterpriseTree()
-                            {
-                                Id= 12,
-                                Balance = 300,
-                                Selected = true,
-                                Children = new List<EnterpriseTree>
-                                {
-                                    new EnterpriseTree()
-                                    {
-                                        Id= 13,
-                                        Balance = 100,
-                                        Selected = true,
-                                        Children = new List<EnterpriseTree>()
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            };
-
-            bool actualRes = new TreeService().SelectEveryEnterpriseInTree(treeParam);
-
-            Assert.True(actualRes);
         }
     } 
 }

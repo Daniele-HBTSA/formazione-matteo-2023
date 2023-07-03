@@ -12,7 +12,6 @@ namespace EnterpriseHierarchy.Context
 
         public int ID_ENTERPRISE { get; set; }
         public string ENT_CODE { get; set; } = null!;
-        public string? ENT_NAME { get; set; }
         public string? ENT_ADDRESS { get; set; }
         public int? ENT_PARENT_ID { get; set; }
         public int ENT_BALACE { get; set; }

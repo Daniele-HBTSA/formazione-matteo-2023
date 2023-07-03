@@ -16,4 +16,22 @@ export class TreeService {
 
     return this.http.get<EnterprieseTree[]>(url);
   }
+
+  SelectWholeTree(fatherId: number): Observable<EnterprieseTree[]> {
+    const url = (environment.url + "select-tree/" + fatherId);
+    
+    return this.http.post<EnterprieseTree[]>(url, fatherId);
+  }
+
+  SelectSingleEnterprise(enterpriseId: number): Observable<EnterprieseTree[]> {
+    const url = (environment.url + "select-enterprise/" + enterpriseId);
+    
+    return this.http.post<EnterprieseTree[]>(url, enterpriseId);
+  }
+
+  AddChild(newChild: EnterprieseTree, fatherId: number): Observable<EnterprieseTree[]> {
+    const url = (environment.url + "add-child/" + fatherId);
+    
+    return this.http.post<EnterprieseTree[]>(url, newChild);
+  }
 }
