@@ -1,5 +1,5 @@
 ﻿using FinanceApp.Models;
-using FinanceApp.Services;
+using FinanceApp.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Session;
 
@@ -7,7 +7,6 @@ namespace FinanceApp.Controllers
 {
     public class AuthorizationController : ControllerBase
     {
-
         public IAuthenticationService authService { get; set; }
 
         public AuthorizationController(IAuthenticationService authService)
@@ -23,12 +22,10 @@ namespace FinanceApp.Controllers
                 AziendaDTO utenteLoggato = await authService.Autenticazione(azienda.AccountAzienda, azienda.PswAzienda);
                 utenteLoggato.TokenPersonale = await authService.GetToken(utenteLoggato.IdAzienda);
                 return Ok(utenteLoggato);
-
             }
             catch (Exception ex)
             {
-                //return BadRequest(false);
-                return Unauthorized(false);
+                return Unauthorized("Non autorizzato");
             }
         }
 

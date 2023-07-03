@@ -1,10 +1,12 @@
 ﻿using FinanceApp.Models;
-using FinanceApp.Services;
+using FinanceApp.Services.Interfaces;
 using FinanceApp.Utils.Enums;
+using FinanceApp.Utils.Security;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinanceApp.Controllers
 {
+    [Authorize]
     public class MovimentiController : ControllerBase
     {
         public IAziendeService aziendeService { get; set; }
@@ -14,13 +16,6 @@ namespace FinanceApp.Controllers
         {
             this.aziendeService = aziendeService;
             this.movimentiService = movimentiService;
-        }
-
-        //Da togliere se non serve più
-        [HttpGet("mostraelenco")]
-        public async Task<List<AziendaDTO>> MostraElencoAziende()
-        {
-            return await aziendeService.ElencoAziende();
         }
 
         //Mostra tutti i movimenti dell'azienda

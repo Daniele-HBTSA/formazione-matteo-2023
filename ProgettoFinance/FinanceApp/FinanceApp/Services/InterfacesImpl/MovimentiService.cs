@@ -1,5 +1,6 @@
 ﻿using FinanceApp.Models;
-using FinanceApp.Repository;
+using FinanceApp.Repository.Interfaces;
+using FinanceApp.Services.Interfaces;
 
 namespace FinanceApp.Services.InterfacesImpl
 {

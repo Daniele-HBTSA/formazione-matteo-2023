@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { HttpClient }  from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
+import { Observable, exhaustAll, tap } from 'rxjs';
 import { User } from '../models/User';
 import { environment } from 'src/environments/environment';
 
@@ -20,12 +20,28 @@ export class AuthService {
 
     return this.http.post<User>(url, utente).pipe(
       tap(element => {
-        if(element != null) {
+        if(element.TokenPersonale == undefined) {
+          throw new Error("Token non ricevuto");
+          
+        } else if (element != null) {
           this.utenteLoggato = element
-        }
-        else ("Utente non trovato")
+          
+          localStorage.setItem("Utente", element.AccountAzienda)
+          localStorage.setItem("AccessToken", element.TokenPersonale.AccessToken)
+          localStorage.setItem("RefreshToken", element.TokenPersonale.RefreshToken)
+
+        } else {
+          throw new Error("Utente non trovato")
+
+        } 
       })
     );
+  }
+
+  liberaStorage(){
+    localStorage.removeItem("Utente")
+    localStorage.removeItem("AccessToken")
+    localStorage.removeItem("RefreshToken")
   }
 
   tentaRegistraz(nuovoUtente : User) :  Observable<User> {

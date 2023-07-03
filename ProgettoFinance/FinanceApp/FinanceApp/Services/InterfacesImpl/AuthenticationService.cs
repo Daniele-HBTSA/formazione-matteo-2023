@@ -1,8 +1,10 @@
 ﻿using FinanceApp.Models;
-using FinanceApp.Repository;
+using FinanceApp.Repository.Interfaces;
+using FinanceApp.Services.Interfaces;
 using FinanceApp.Utils.Security;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using NuGet.Common;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -66,14 +68,29 @@ namespace FinanceApp.Services.InterfacesImpl
 
             }
         }
-        public async Task<string> GetToken(int IdAzienda)
+        public async Task<Dictionary<string, string>> GetToken(int IdAzienda)
         {
             AziendaDTO aziendaCorrente = await aziendeRepository.SelezionaAziendaPerID(IdAzienda);
             byte[] chiaveSegreta = Encoding.ASCII.GetBytes(this.jwtSettings.Secret);
 
             List<Claim> claims = new List<Claim>();
-            claims.Add(new Claim(ClaimTypes.Name, aziendaCorrente.AccountAzienda));
+            claims.Add(new Claim("Id", aziendaCorrente.IdAzienda.ToString()));
+            claims.Add(new Claim("Account", aziendaCorrente.AccountAzienda));
 
+            JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+
+            SecurityToken accessToken = tokenHandler.CreateToken(AccessToken(claims, chiaveSegreta));
+            SecurityToken refreshToken = tokenHandler.CreateToken(RefreshToken(claims, chiaveSegreta));
+
+            Dictionary<string, string> tokenPair = new Dictionary<string, string>();
+            tokenPair.Add("AccessToken", tokenHandler.WriteToken(accessToken));
+            tokenPair.Add("RefreshToken", tokenHandler.WriteToken(refreshToken));
+
+            return tokenPair;
+        }
+
+        public SecurityTokenDescriptor AccessToken(List<Claim> claims, byte[] chiaveSegreta)
+        {
             SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor()
             {
                 Subject = new ClaimsIdentity(claims),
@@ -81,10 +98,19 @@ namespace FinanceApp.Services.InterfacesImpl
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(chiaveSegreta), SecurityAlgorithms.HmacSha256Signature)
             };
 
-            JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
-            SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenDescriptor;
+        }
 
-            return tokenHandler.WriteToken(token);
+        public SecurityTokenDescriptor RefreshToken(List<Claim> claims, byte[] chiaveSegreta)
+        {
+            SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor()
+            {
+                Subject = new ClaimsIdentity(claims),
+                Expires = DateTime.UtcNow.AddMinutes(this.jwtSettings.Refresh),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(chiaveSegreta), SecurityAlgorithms.HmacSha256Signature)
+            };
+
+            return tokenDescriptor;
         }
     }
 }

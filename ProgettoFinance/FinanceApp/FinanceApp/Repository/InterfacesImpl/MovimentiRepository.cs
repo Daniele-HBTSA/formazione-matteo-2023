@@ -1,5 +1,6 @@
 ﻿using FinanceApp.Context;
 using FinanceApp.Models;
+using FinanceApp.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace FinanceApp.Repository.InterfacesImpl

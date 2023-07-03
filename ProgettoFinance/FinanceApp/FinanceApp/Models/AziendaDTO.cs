@@ -19,7 +19,8 @@ namespace FinanceApp.Models
         [JsonPropertyName("SaldoAzienda")]
         public int? SaldoAzienda { get; set; }
 
-        public string? TokenPersonale { get; set; }
+        [JsonPropertyName("TokenPersonale")]
+        public Dictionary<string, string>? TokenPersonale { get; set; }
 
         public override string ToString()
         {

@@ -15,6 +15,8 @@ export class FormDatiComponent implements OnInit, OnDestroy{
   registrati = false;
   @Output()
   rispostaServer = new EventEmitter<boolean>();
+  @Output()
+  chiamataInCorso = new EventEmitter<boolean>();
 
   IdAzienda? = 0;
   AccountAzienda = "";
@@ -41,11 +43,14 @@ export class FormDatiComponent implements OnInit, OnDestroy{
   }
 
   controlloDatiAccesso(){
+    this.chiamataInCorso.emit(true);
+
     if(this.AccountAzienda == "" || this.PswAzienda == "") 
       return false
     else 
       return true
   }
+
   controlloDatiRegistr(){
     if(this.controlloDatiAccesso() || this.NomeAzienda == "")
       return false
@@ -64,15 +69,14 @@ export class FormDatiComponent implements OnInit, OnDestroy{
         next : (risposta : User) => {
           if(risposta != null){ 
             this.rispostaServer.emit(true);
-          }
-          else {
-            alert("Il nome utente e/o la password sono errati!");
-            this.rispostaServer.emit(false);
+            this.chiamataInCorso.emit(false);
+
           }
         },
-        error(err) {
-          alert("Error: " + err);
-  
+        error: (err) => {
+          alert("Il nome utente e/o la password sono errati!");
+          this.rispostaServer.emit(false);
+          this.chiamataInCorso.emit(false);
         }
       }))
     } else {
@@ -93,13 +97,13 @@ export class FormDatiComponent implements OnInit, OnDestroy{
         next : (risposta : User) => {
           if(risposta){ 
             alert("Registrazione riuscita, autenticati");
-          }
-          else {
-            alert("Utente già esistente");
+            this.chiamataInCorso.emit(false);
+
           }
         },
-        error(err) {
-          alert("Error: " + err);
+        error : (err) => {
+          alert("Utente già esistente");
+          this.chiamataInCorso.emit(false);
         }
       }))
     } else {
