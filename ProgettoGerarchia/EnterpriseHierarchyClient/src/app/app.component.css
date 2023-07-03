@@ -1,0 +1,6 @@
+app-tree-structure {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    align-items: stretch;
+}
